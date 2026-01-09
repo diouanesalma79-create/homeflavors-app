@@ -1,0 +1,68 @@
+/* Logo HomeFlavors - Style Professionnel */
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* slightly more space for balance */
+  text-decoration: none;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.logo-link:hover {
+  background: rgba(92, 69, 47, 0.08);
+}
+
+.logo-link:focus-visible {
+  outline: 2px solid #c9a167;
+  outline-offset: 2px;
+}
+
+.logo-icon {
+  width: 88px; /* increased from previous size */
+  height: 88px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.logo-link:hover .logo-icon {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: #2d5016;
+  letter-spacing: -0.01em;
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .logo-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .logo-text {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-link {
+    gap: 0.375rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .logo-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+}
