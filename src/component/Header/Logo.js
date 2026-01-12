@@ -1,14 +1,16 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import logoImage from '../../assets/logo/homeflavors-logo.png';
+import logo from '../../assets/logo/homeflavors-logo.png';
 import '../../style/Logo.css';
 
 const Logo = () => {
-  return (
-    <NavLink to="/" className="logo-link" aria-label="HomeFlavors - Retour à l'accueil">
-      <img src={logoImage} alt="HomeFlavors" className="logo-icon" />
-      <h1 className="logo-text">HomeFlavors</h1>
-    </NavLink>
+  return (<>
+       {/* Logo + Title */}
+      <div className="header-left">
+        <img src={logo} alt="HomeFlavors Logo" className="header-logo" />
+        <span className="header-title">HomeFlavors</span>
+      </div>
+      </>
+
   );
 };
 
