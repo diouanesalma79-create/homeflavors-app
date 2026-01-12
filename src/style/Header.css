@@ -21,7 +21,7 @@
   --text-white: #ffffff;
   
   /* Espacements */
-  --header-height: 70px;
+  --header-height: 110px;
   --header-padding-x: 1.5rem;
 }
 
@@ -42,7 +42,7 @@
   justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--header-padding-x);
+  padding: 1rem var(--header-padding-x);
   height: var(--header-height);
 }
 

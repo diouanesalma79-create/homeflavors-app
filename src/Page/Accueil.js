@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "../style/Accueil.css";
 
 const Accueil = () => {
@@ -68,8 +69,8 @@ const Accueil = () => {
             ))}
           </div>
 
-          <div className="view-all-container">
-            <button className="view-all-btn">Voir toutes les recettes</button>
+                    <div className="view-all-container">
+            <Link to="/recipes" className="view-all-btn">Voir toutes les recettes</Link>
           </div>
         </div>
       </section>

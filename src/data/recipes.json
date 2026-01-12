@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "Moroccan Tagine",
+    "description": "Traditional slow-cooked stew with aromatic spices and tender meat.",
+    "image": "/images/moroccan tajin.jpg",
+    "category": "morocco",
+    "ingredients": ["lamb", "spices", "prunes", "almonds", "onions", "ginger", "cinnamon"]
+  },
+  {
+    "id": 2,
+    "title": "Japanese Ramen",
+    "description": "Rich, savory broth with fresh noodles and authentic toppings.",
+    "image": "/images/Japanese Ramen.jpg",
+    "category": "asia",
+    "ingredients": ["ramen noodles", "broth", "chashu pork", "soft-boiled egg", "scallions", "nori", "bamboo shoots"]
+  },
+  {
+    "id": 3,
+    "title": "Italian Pasta Carbonara",
+    "description": "Creamy pasta with pancetta, eggs, and parmesan cheese.",
+    "image": "/images/Italian Pasta Carbonara.jpg",
+    "category": "italy",
+    "ingredients": ["spaghetti", "pancetta", "eggs", "parmesan", "black pepper", "guanciale"]
+  },
+  {
+    "id": 4,
+    "title": "American Burger",
+    "description": "Juicy beef patty with fresh vegetables and special sauce.",
+    "image": "/images/American Burger.jpg",
+    "category": "west",
+    "ingredients": ["beef patty", "bun", "lettuce", "tomato", "onion", "pickles", "cheese"]
+  },
+  {
+    "id": 5,
+    "title": "Mexican Tacos",
+    "description": "Soft corn tortillas filled with seasoned meat and fresh toppings.",
+    "image": "/images/Mexican Tacos.jpg",
+    "category": "mexico",
+    "ingredients": ["corn tortillas", "ground beef", "cilantro", "onion", "lime", "salsa", "cheese"]
+  },
+  {
+    "id": 6,
+    "title": "Indian Butter Chicken",
+    "description": "Rich, creamy curry with tender chicken pieces in tomato-based sauce.",
+    "image": "/images/Indian Butter Chicken.jpg",
+    "category": "india",
+    "ingredients": ["chicken", "tomatoes", "cream", "butter", "garam masala", "garlic", "ginger"]
+  },
+  {
+    "id": 7,
+    "title": "French Ratatouille",
+    "description": "Traditional Provençal vegetable stew with eggplant, zucchini, and tomatoes.",
+    "image": "/images/French Ratatouille.jpg",
+    "category": "france",
+    "ingredients": ["eggplant", "zucchini", "tomatoes", "bell peppers", "onions", "herbs", "olive oil"]
+  },
+  {
+    "id": 8,
+    "title": "Chinese Dumplings",
+    "description": "Delicate dumplings filled with pork and vegetables, served with dipping sauce.",
+    "image": "/images/Chinese Dumplings.jpg",
+    "category": "china",
+    "ingredients": ["dumpling wrappers", "pork", "cabbage", "scallions", "ginger", "soy sauce", "sesame oil"]
+  }
+]

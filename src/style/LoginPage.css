@@ -26,6 +26,7 @@
   gap: 20px;
   font-family: 'Segoe UI', sans-serif;
   transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 
@@ -80,7 +81,13 @@
 .login-box:hover {
   animation: vibrate 0.4s linear; */
  
+.login-box:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
 .login-box:active {
   transform: scale(1.05); /* تكبر شوية بحال جاية عندك */
 }
+
+/* Removed the continuous float animation */
 

@@ -4,7 +4,7 @@ import '../../style/Navigation.css';
 
 const navigationItems = [
   { path: '/', label: 'Accueil', end: true },
-  { path: '/recettes', label: 'Recettes', end: false },
+  { path: '/recipes', label: 'Recettes', end: false },
   { path: '/chefs', label: 'Chefs', end: false },
 ];
 
