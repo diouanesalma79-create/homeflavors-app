@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import recipesData from '../data/recipes.json';
 import backgroundImage from '../assets/logo/background2.png';
-import './RecipeExploration.css';
+import '../style/RecipeExploration.css';
 
 const RecipeExploration = () => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  
+
+  
+
   
   // Categories with proper names
   const categories = [
@@ -70,6 +74,10 @@ const RecipeExploration = () => {
       // Search is handled by useEffect
     }
   };
+  
+
+  
+
 
   return (
     <div className="recipe-exploration" style={{ backgroundColor: 'transparent', backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
@@ -113,10 +121,11 @@ const RecipeExploration = () => {
               <div className="recipe-content">
                 <h3 className="recipe-title">{recipe.title}</h3>
                 <p className="recipe-description">{recipe.description}</p>
-                <div className="ingredients-list">
-                  <strong>Ingredients:</strong> {recipe.ingredients.join(', ')}
+
+                <div className="card-buttons">
+                  <Link to={`/recipe/${recipe.id}`} className="show-more-btn">Show More</Link>
+                  <button className="watch-video-btn">Watch Video Tutorial</button>
                 </div>
-                <button className="watch-video-btn">Watch Video Tutorial</button>
               </div>
             </div>
           </Link>

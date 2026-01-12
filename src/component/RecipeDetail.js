@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import recipesData from '../data/recipes.json';
-import './RecipeDetail.css';
+import '../style/RecipeDetail.css';
 
 const RecipeDetail = () => {
   const { id } = useParams();

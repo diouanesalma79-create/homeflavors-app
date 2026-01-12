@@ -31,7 +31,7 @@
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   margin: 0;
   color: #5c452f;
@@ -47,7 +47,7 @@
   }
 
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
   }
 }
 
@@ -63,6 +63,6 @@
   }
 
   .logo-text {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 }
