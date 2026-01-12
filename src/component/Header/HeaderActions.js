@@ -5,7 +5,7 @@ const HeaderActions = () => {
   const navigate = useNavigate();
 
   const handleChatboxClick = () => {
-    console.log('Chatbox clicked');
+    navigate('/chatbox');
   };
 
   const handleLoginClick = () => {
