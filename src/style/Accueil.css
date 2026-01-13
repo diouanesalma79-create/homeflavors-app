@@ -1,22 +1,26 @@
 /* Accueil Page - HomeFlavors Design */
-
 .accueil {
   background: #f5f0e8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 /* Hero Section */
 .hero-section {
   position: relative;
   height: 400px;
-   background-image: url('../assets/logo/Food Wallpaper.jpg');
+  background-image: url('../assets/logo/Food-Wallpaper.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .hero-overlay {
@@ -25,42 +29,52 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2); /* Reduced opacity */
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .hero-content {
   text-align: center;
   color: #ffffff;
-  padding: 2rem;
+  padding: 4rem 2rem 2rem; /* النص هابط شوية */
   max-width: 800px;
 }
 
+/* نص أبيض جميل وواضح */
+.hero-title,
+.hero-subtitle,
+.hero-tagline {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+}
+
 .hero-title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 0.5px;
+  font-size: 2.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .hero-subtitle {
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
 }
 
 .hero-tagline {
   font-size: 1.25rem;
   font-weight: 300;
-  margin: 0;
   opacity: 0.95;
 }
 
 /* Popular Recipes Section */
 .popular-recipes-section {
-  padding: 4rem 2rem 4rem;
   background: url('../assets/logo/background2.png'), #f5f0e8;
   background-size: cover;
   background-position: center;
@@ -68,17 +82,25 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 0 !important;
+  padding: 8rem 2rem 6rem; /* الكاردات هابطين شوية */
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 0 !important;
 }
 
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #2d2520;
+  color: #ffffff;
   text-align: center;
   margin: 0 0 3rem 0;
 }
@@ -88,6 +110,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  margin-top: 2rem;
   margin-bottom: 3rem;
 }
 
@@ -243,7 +266,7 @@
   }
 
   .popular-recipes-section {
-    padding: 3rem 1.5rem;
+    padding: 4rem 1.5rem 3rem;
   }
 
   .section-title {
@@ -276,7 +299,7 @@
   }
 
   .popular-recipes-section {
-    padding: 2.5rem 1rem;
+    padding: 3rem 1rem 2.5rem;
   }
 
   .section-title {

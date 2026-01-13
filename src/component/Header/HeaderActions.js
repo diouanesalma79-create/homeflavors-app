@@ -27,7 +27,7 @@ const HeaderActions = () => {
 
         <button
           type="button"
-          className="header-btn header-btn--login"
+           className="header-btn header-btn--login"
           onClick={handleLoginClick}
         >
           Login
