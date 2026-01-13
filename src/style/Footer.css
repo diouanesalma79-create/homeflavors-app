@@ -341,3 +341,22 @@
     font-size: 0.8125rem;
   }
 }
+
+/* Assurez-vous que html et body prennent toute la hauteur */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Conteneur principal de la page */
+.page-container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column; 
+}
+
+/* Contenu principal */ 
+.main-content {
+  flex: 1; 
+}

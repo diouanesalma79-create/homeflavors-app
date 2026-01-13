@@ -23,6 +23,10 @@ const Footer = () => {
   ];
 
   return (
+    <div className="page-container">
+            <div className="main-content">
+         
+ 
     <footer className="footer">
       <div className="footer-container">
         {/* Section gauche - Logo & Description */}
@@ -106,6 +110,8 @@ const Footer = () => {
         </p>
       </div>
     </footer>
+    </div>
+    </div>
   );
 };
 

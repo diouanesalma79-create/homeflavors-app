@@ -113,3 +113,23 @@
     --header-padding-x: 0.75rem;
   }
 }
+/* Base boutons Header */
+.header-right .header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+@media (min-width: 1024px) {
+  .header-right .header-btn {
+    padding: 0.75rem 1.6rem;
+    font-size: 1rem;
+    min-height: 46px;
+  }
+}
