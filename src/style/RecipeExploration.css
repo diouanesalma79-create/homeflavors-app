@@ -6,31 +6,6 @@
   /* Background image is set via inline style */
 }
 
-/* Decorative leaf patterns commented out to ensure background image visibility */
-/* .recipe-exploration::before {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 80px;
-  height: 80px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,50 Q40,10 80,30 Q60,70 20,50' fill='none' stroke='%235A3E2B' stroke-opacity='0.1' stroke-width='2'/%3E%3C/svg%3E");
-  opacity: 0.3;
-  z-index: 0;
-}
-
-.recipe-exploration::after {
-  content: "";
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 80px;
-  height: 80px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M80,50 Q60,90 20,70 Q40,30 80,50' fill='none' stroke='%235A3E2B' stroke-opacity='0.1' stroke-width='2'/%3E%3C/svg%3E");
-  opacity: 0.3;
-  z-index: 0;
-} */
-
 .exploration-content {
   position: relative;
   z-index: 1;
