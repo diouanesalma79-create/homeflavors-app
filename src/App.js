@@ -7,6 +7,7 @@ import { LoginPage } from './Page/LoginPage';
 import RecipeExploration from './component/RecipeExploration';
 import RecipeDetail from './component/RecipeDetail';
 import ChatboxA from './component/ChatboxA';
+import Chefs from './component/Chefs';
 import ErrorPage from './component/ErrorPage';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Accueil />} />
           <Route path="/recipes" element={<RecipeExploration />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
+          <Route path="/chefs" element={<Chefs />} />
           <Route path="/chatbox" element={<ChatboxA />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<ErrorPage />} />
