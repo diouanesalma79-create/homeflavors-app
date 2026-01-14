@@ -111,34 +111,40 @@ const RecipeExploration = () => {
         </div>
       </div>
 
-      <div className="recipes-grid">
-        {filteredRecipes.map(recipe => (
-          <Link to={`/recipe/${recipe.id}`} className="recipe-card-link" key={recipe.id}>
-            <div className="recipe-card">
-              <div className="recipe-image-container">
-                <img src={recipe.image} alt={recipe.title} className="recipe-image" />
-              </div>
-              <div className="recipe-content">
-                <h3 className="recipe-title">{recipe.title}</h3>
-                <p className="recipe-description">{recipe.description}</p>
+              <div className="recipes-grid">
+            {filteredRecipes.map(recipe => (
+              <div className="recipe-card" key={recipe.id}>
 
-                <div className="card-buttons">
-                  <Link to={`/recipe/${recipe.id}`} className="show-more-btn">Show More</Link>
-                  <button className="watch-video-btn">Watch Video Tutorial</button>
+                <div className="recipe-image-container">
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="recipe-image"
+                  />
+                 
+
                 </div>
+
+                <div className="recipe-content">
+                  <h3 className="recipe-title">{recipe.title}</h3>
+                  <p className="recipe-description">{recipe.description}</p>
+                   <div className="card-buttons">
+                  <Link to={`/recipe/${recipe.id}`} className="show-more-btn">
+                    <button>Show More</button>
+                  </Link>
+                </div>
+                </div>
+
               </div>
-            </div>
-          </Link>
-        ))}
-        
-        {filteredRecipes.length === 0 && (
+            ))}
+          </div>
+          {filteredRecipes.length === 0 && (
           <div className="no-results">
             <h3>No recipes found</h3>
-            <p>Try adjusting your search or category filter.</p>
+            <p>Try adjusting your search !!!</p>
           </div>
         )}
       </div>
-    </div>
   );
 };
 

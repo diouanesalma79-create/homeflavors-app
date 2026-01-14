@@ -10,8 +10,7 @@ const Footer = () => {
   const footerLinks = [
     { path: '/about', label: 'À propos' },
     { path: '/privacy', label: 'Politique de confidentialité' },
-    { path: '/terms', label: 'Conditions d\'utilisation' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/terms', label: 'Conditions d\'utilisation' }
   ];
 
   const socialLinks = [

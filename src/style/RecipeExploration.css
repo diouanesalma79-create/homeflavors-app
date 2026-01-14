@@ -148,13 +148,18 @@
 }
 
 .recipe-card {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 420px; 
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 16px;
   overflow: hidden;
+
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  height: 100%;
 }
+
 
 .recipe-card:hover {
   transform: translateY(-5px);
@@ -162,20 +167,16 @@
 }
 
 .recipe-image-container {
-  width: 100%;
-  height: 200px;
+  height: 180px; 
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .recipe-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: none;
 }
+
 
 /* .recipe-card:hover .recipe-image {
   transform: scale(1.05);
@@ -187,17 +188,29 @@
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
+  flex: 1;
+  padding: 1rem;      
 }
 
+/* Container of the buttons (under description) */
 .card-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-top: auto;   
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem; 
+  justify-content: center;
 }
 
+/* Link wrapper */
 .show-more-btn {
-  background-color: #d4a574;
-  color: white;
+  text-decoration: none;
+   margin-bottom: 0.75rem;
+}
+
+/* Actual button */
+.show-more-btn button {
+  background-color: #d19c63; /* beige like image */
+   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -205,14 +218,21 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
-  text-align: center;
-  text-decoration: none;
-  display: block;
+  height: 70px;
+  width: 300px;
+
 }
 
-.show-more-btn:hover {
-  background-color: #c9a167;
+/* Hover effect */
+.show-more-btn button:hover {
+  background-color: #d19c63;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Remove default focus outline */
+.show-more-btn button:focus {
+  outline: none;
 }
 
 .recipe-title {
@@ -229,29 +249,6 @@
   line-height: 1.5;
 }
 
-
-
-
-
-
-
-.watch-video-btn {
-  background-color: #2E5E4E;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  text-align: center;
-}
-
-.watch-video-btn:hover {
-  background-color: #3a7a6a;
-}
 
 /* Responsive design */
 @media (max-width: 768px) {
