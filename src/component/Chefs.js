@@ -1,59 +1,66 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../style/Chefs.css';
+import spanishFood from '../assets/logo/spanishfood.jpg';
+import egyptFood from '../assets/logo/egyptfood.jpg';
+import vietnamFood from '../assets/logo/Vietnamfood.jpg';
+import italienFood from '../assets/logo/italienfood.jpg';
+import moroccoFood from '../assets/logo/moroccofood.jpg';
+import japanFood from '../assets/logo/japanfood.jpg';
+
 
 const Chefs = () => {
   // Sample chef data
   const chefs = [
-    {
-      id: 1,
-      name: "Maria Rodriguez",
-      country: "Spain",
-      description: "Traditional Spanish tapas from my grandmother's kitchen",
-      recipesCount: 12,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=MR"
-    },
-    {
-      id: 2,
-      name: "Ahmed Hassan",
-      country: "Egypt",
-      description: "Authentic Middle Eastern dishes with family secrets",
-      recipesCount: 8,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=AH"
-    },
-    {
-      id: 3,
-      name: "Linh Nguyen",
-      country: "Vietnam",
-      description: "Street food recipes passed down from my mother",
-      recipesCount: 15,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=LN"
-    },
-    {
-      id: 4,
-      name: "Giuseppe Romano",
-      country: "Italy",
-      description: "Nonna's pasta recipes perfected over decades",
-      recipesCount: 10,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=GR"
-    },
-    {
-      id: 5,
-      name: "Fatima Al-Zahra",
-      country: "Morocco",
-      description: "Spice blends and tagines from my family traditions",
-      recipesCount: 9,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=FA"
-    },
-    {
-      id: 6,
-      name: "Sakura Tanaka",
-      country: "Japan",
-      description: "Delicate Japanese dishes with seasonal ingredients",
-      recipesCount: 7,
-      image: "https://via.placeholder.com/200x200/8a5a44/FFFFFF?text=ST"
-    }
-  ];
+  {
+    id: 1,
+    name: "Maria Rodriguez",
+    country: "Spain",
+    description: "Traditional Spanish tapas from my grandmother's kitchen",
+    recipesCount: 12,
+    image: spanishFood
+  },
+  {
+    id: 2,
+    name: "Ahmed Hassan",
+    country: "Egypt",
+    description: "Authentic Middle Eastern dishes with family secrets",
+    recipesCount: 8,
+    image: egyptFood
+  },
+  {
+    id: 3,
+    name: "Linh Nguyen",
+    country: "Vietnam",
+    description: "Street food recipes passed down from my mother",
+    recipesCount: 15,
+    image: vietnamFood
+  },
+  {
+    id: 4,
+    name: "Giuseppe Romano",
+    country: "Italy",
+    description: "Nonna's pasta recipes perfected over decades",
+    recipesCount: 10,
+    image: italienFood
+  },
+  {
+    id: 5,
+    name: "Fatima Al-Zahra",
+    country: "Morocco",
+    description: "Spice blends and tagines from my family traditions",
+    recipesCount: 9,
+    image: moroccoFood
+  },
+  {
+    id: 6,
+    name: "Sakura Tanaka",
+    country: "Japan",
+    description: "Delicate Japanese dishes with seasonal ingredients",
+    recipesCount: 7,
+    image: japanFood
+  }
+];
 
   return (
     <div className="chefs-page">
