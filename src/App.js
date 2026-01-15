@@ -11,6 +11,7 @@ import BecomeAChef from './component/BecomeAChef';
 import UserTypeSelection from './component/UserTypeSelection';
 import VisitorLogin from './component/VisitorLogin';
 import ChefLogin from './component/ChefLogin';
+import ChefLoginForm from './component/ChefLoginForm';
 import ErrorPage from './component/ErrorPage';
 import './App.css';
 
@@ -28,7 +29,7 @@ function App() {
           <Route path="/become-chef" element={<BecomeAChef />} />
           <Route path="/login" element={<UserTypeSelection />} />
           <Route path="/login/visitor" element={<VisitorLogin />} />
-          <Route path="/login/chef" element={<ChefLogin />} />
+          <Route path="/login/chef" element={<ChefLoginForm />} />
           <Route path="/chatbox" element={<ChatboxA />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

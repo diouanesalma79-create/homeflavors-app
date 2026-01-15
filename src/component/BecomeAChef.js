@@ -160,7 +160,7 @@ const BecomeAChef = () => {
         </form>
 
         <div className="login-link">
-          <p>Already have an account? <Link to="/login">Sign in here</Link></p>
+          <p>Already have an account? <Link to="/login/chef">Sign in here</Link></p>
         </div>
       </div>
     </div>
