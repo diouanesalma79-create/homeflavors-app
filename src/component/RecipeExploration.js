@@ -143,14 +143,14 @@ const RecipeExploration = () => {
           </div>
         ))}
 
-        {/* PREVIOUS CARD */}
+              {/* PREVIOUS CARD */}
         {currentPage > 0 && (
           <div
-            className="recipe-card voir-plus-card"
+            className="recipe-card voir-plus-card previous-card"
             onClick={() => setCurrentPage(prev => prev - 1)}
           >
             <div className="voir-plus-content">
-              <p> - </p>
+              <span className="arrow">←</span>
               <h3>Previous</h3>
               <p>Go back</p>
             </div>
@@ -160,25 +160,17 @@ const RecipeExploration = () => {
         {/* NEXT CARD */}
         {endIndex < filteredRecipes.length && (
           <div
-            className="recipe-card voir-plus-card"
+            className="recipe-card voir-plus-card next-card"
             onClick={() => setCurrentPage(prev => prev + 1)}
           >
             <div className="voir-plus-content">
-              <h1> + </h1>
+              <span className="arrow">→</span>
               <h3>Voir plus</h3>
               <p>Discover more recipes</p>
-            </div>
           </div>
-        )}
-      </div>
-
-      {/* No results */}
-      {filteredRecipes.length === 0 && (
-        <div className="no-results">
-          <h3>No recipes found</h3>
-          <p>Try adjusting your search or continent selection.</p>
         </div>
       )}
+      </div>
     </div>
   );
 };
