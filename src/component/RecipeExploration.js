@@ -4,147 +4,182 @@ import recipesData from '../data/recipes.json';
 import backgroundImage from '../assets/logo/background2.png';
 import '../style/RecipeExploration.css';
 
+const RECIPES_PER_PAGE = 6;
+
 const RecipeExploration = () => {
   const [recipes, setRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  
+  const [selectedContinent, setSelectedContinent] = useState('all');
+  const [currentPage, setCurrentPage] = useState(0);
 
-  
+  // Pagination indexes
+  const startIndex = currentPage * RECIPES_PER_PAGE;
+  const endIndex = startIndex + RECIPES_PER_PAGE;
+  const visibleRecipes = filteredRecipes.slice(startIndex, endIndex);
 
-  
-  // Categories with proper names
-  const categories = [
-    { id: 'all', name: 'All Recipes' },
-    { id: 'morocco', name: 'Morocco' },
-    { id: 'asia', name: 'Asia' },
-    { id: 'italy', name: 'Italy' },
-    { id: 'west', name: 'West' },
-    { id: 'mexico', name: 'Mexico' },
-    { id: 'india', name: 'India' },
-    { id: 'france', name: 'France' },
-    { id: 'china', name: 'China' },
-  ];
-  
+  // Reset page when filter/search changes
   useEffect(() => {
-    // Simulate loading recipes from JSON file
+    setCurrentPage(0);
+  }, [searchTerm, selectedContinent]);
+
+  // Continents
+  const continents = [
+    { id: 'all', name: 'All recipes' },
+    { id: 'Africa', name: 'Africa' },
+    { id: 'Asia', name: 'Asia' },
+    { id: 'Europe', name: 'Europe' },
+    { id: 'NorthAmerica', name: 'North America' },
+    { id: 'SouthAmerica', name: 'South America' }
+  ];
+
+  // Load recipes
+  useEffect(() => {
     setRecipes(recipesData);
     setFilteredRecipes(recipesData);
   }, []);
-  
-  // Filter recipes based on search term and category
+
+  // Filtering logic
   useEffect(() => {
-    let results = recipes;
-    
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      results = results.filter(recipe => recipe.category === selectedCategory);
-    }
-    
-    // Filter by search term
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      results = results.filter(recipe => 
-        recipe.title.toLowerCase().includes(term) ||
-        recipe.description.toLowerCase().includes(term) ||
-        recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(term))
+    let results = [...recipes];
+
+    // Filter by continent
+    if (selectedContinent !== 'all') {
+      results = results.filter(
+        recipe => recipe.continent === selectedContinent
       );
     }
-    
-    setFilteredRecipes(results);
-  }, [searchTerm, selectedCategory, recipes]);
-  
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Search is handled by useEffect
-  };
-  
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId);
-  };
-  
-  const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-  
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      // Search is handled by useEffect
+
+    // Search filter
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      results = results.filter(recipe =>
+        recipe.title.toLowerCase().includes(term) ||
+        recipe.description.toLowerCase().includes(term) ||
+        recipe.ingredients.some(ingredient =>
+          ingredient.toLowerCase().includes(term)
+        )
+      );
     }
-  };
-  
 
-  
-
+    setFilteredRecipes(results);
+  }, [searchTerm, selectedContinent, recipes]);
 
   return (
-    <div className="recipe-exploration" style={{ backgroundColor: 'transparent', backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
+    <div
+      className="recipe-exploration"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Header */}
       <div className="exploration-header">
-        <h1 className="exploration-title">Explore the Recipe Catalog</h1>
-        
-        <form className="search-container" onSubmit={handleSearch}>
-          <input 
-            type="text" 
-            placeholder="Search by ingredient or cuisine..." 
+        <h1 className="exploration-title">
+          Explore the Recipe Catalog
+        </h1>
+
+        <form className="search-container">
+          <input
+            type="text"
+            placeholder="Search by ingredient or recipe name..."
             className="search-bar"
             value={searchTerm}
-            onChange={handleSearchInputChange}
-            onKeyPress={handleKeyPress}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" className="search-button">Search</button>
+          <button type="button" className="search-button">
+            Search
+          </button>
         </form>
       </div>
 
+      {/* Continent Filters */}
       <div className="categories-section">
         <div className="category-buttons">
-          {categories.map(category => (
-            <button 
-              key={category.id}
-              className={`category-btn ${selectedCategory === category.id ? 'active' : ''} ${category.id}`}
-              onClick={() => handleCategoryClick(category.id)}
+          {continents.map(continent => (
+            <button
+              key={continent.id}
+              className={`category-btn ${
+                selectedContinent === continent.id ? 'active' : ''
+              }`}
+              onClick={() => setSelectedContinent(continent.id)}
             >
-              {category.name}
+              {continent.name}
             </button>
           ))}
         </div>
       </div>
 
-              <div className="recipes-grid">
-            {filteredRecipes.map(recipe => (
-              <div className="recipe-card" key={recipe.id}>
+      {/* Recipes Grid */}
+      <div className="recipes-grid">
+        {visibleRecipes.map(recipe => (
+          <div className="recipe-card" key={recipe.id}>
+            <div className="recipe-image-container">
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="recipe-image"
+              />
+            </div>
 
-                <div className="recipe-image-container">
-                  <img
-                    src={recipe.image}
-                    alt={recipe.title}
-                    className="recipe-image"
-                  />
-                 
+            <div className="recipe-content">
+              <h3 className="recipe-title">{recipe.title}</h3>
+              <p className="recipe-description">
+                {recipe.description}
+              </p>
 
-                </div>
-
-                <div className="recipe-content">
-                  <h3 className="recipe-title">{recipe.title}</h3>
-                  <p className="recipe-description">{recipe.description}</p>
-                   <div className="card-buttons">
-                  <Link to={`/recipe/${recipe.id}`} className="show-more-btn">
-                    <button>Show More</button>
-                  </Link>
-                </div>
-                </div>
-
+              <div className="card-buttons">
+                <Link
+                  to={`/recipe/${recipe.id}`}
+                  className="show-more-btn"
+                >
+                  <button>Show More</button>
+                </Link>
               </div>
-            ))}
+            </div>
           </div>
-          {filteredRecipes.length === 0 && (
-          <div className="no-results">
-            <h3>No recipes found</h3>
-            <p>Try adjusting your search !!!</p>
+        ))}
+
+        {/* PREVIOUS CARD */}
+        {currentPage > 0 && (
+          <div
+            className="recipe-card voir-plus-card"
+            onClick={() => setCurrentPage(prev => prev - 1)}
+          >
+            <div className="voir-plus-content">
+              <p> - </p>
+              <h3>Previous</h3>
+              <p>Go back</p>
+            </div>
+          </div>
+        )}
+
+        {/* NEXT CARD */}
+        {endIndex < filteredRecipes.length && (
+          <div
+            className="recipe-card voir-plus-card"
+            onClick={() => setCurrentPage(prev => prev + 1)}
+          >
+            <div className="voir-plus-content">
+              <h1> + </h1>
+              <h3>Voir plus</h3>
+              <p>Discover more recipes</p>
+            </div>
           </div>
         )}
       </div>
+
+      {/* No results */}
+      {filteredRecipes.length === 0 && (
+        <div className="no-results">
+          <h3>No recipes found</h3>
+          <p>Try adjusting your search or continent selection.</p>
+        </div>
+      )}
+    </div>
   );
 };
 

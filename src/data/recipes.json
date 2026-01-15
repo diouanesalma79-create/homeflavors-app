@@ -4,7 +4,8 @@
     "title": "Moroccan Tagine",
     "description": "Traditional slow-cooked stew with aromatic spices and tender meat.",
     "image": "/images/moroccan tajin.jpg",
-    "category": "morocco",
+    "city": "Marrakech",
+    "continent": "Africa",
     "ingredients": ["lamb", "spices", "prunes", "almonds", "onions", "ginger", "cinnamon"]
   },
   {
@@ -12,7 +13,8 @@
     "title": "Japanese Ramen",
     "description": "Rich, savory broth with fresh noodles and authentic toppings.",
     "image": "/images/Japanese Ramen.jpg",
-    "category": "asia",
+    "city": "Tokyo",
+    "continent": "Asia",
     "ingredients": ["ramen noodles", "broth", "chashu pork", "soft-boiled egg", "scallions", "nori", "bamboo shoots"]
   },
   {
@@ -20,7 +22,8 @@
     "title": "Italian Pasta Carbonara",
     "description": "Creamy pasta with pancetta, eggs, and parmesan cheese.",
     "image": "/images/Italian Pasta Carbonara.jpg",
-    "category": "italy",
+    "city": "Rome",
+    "continent": "Europe",
     "ingredients": ["spaghetti", "pancetta", "eggs", "parmesan", "black pepper", "guanciale"]
   },
   {
@@ -28,7 +31,8 @@
     "title": "American Burger",
     "description": "Juicy beef patty with fresh vegetables and special sauce.",
     "image": "/images/American Burger.jpg",
-    "category": "west",
+    "city": "New York",
+    "continent": "NorthAmerica",
     "ingredients": ["beef patty", "bun", "lettuce", "tomato", "onion", "pickles", "cheese"]
   },
   {
@@ -36,7 +40,8 @@
     "title": "Mexican Tacos",
     "description": "Soft corn tortillas filled with seasoned meat and fresh toppings.",
     "image": "/images/Mexican Tacos.jpg",
-    "category": "mexico",
+    "city": "Mexico City",
+    "continent": "NorthAmerica",
     "ingredients": ["corn tortillas", "ground beef", "cilantro", "onion", "lime", "salsa", "cheese"]
   },
   {
@@ -44,7 +49,8 @@
     "title": "Indian Butter Chicken",
     "description": "Rich, creamy curry with tender chicken pieces in tomato-based sauce.",
     "image": "/images/Indian Butter Chicken.jpg",
-    "category": "india",
+    "city": "Delhi",
+    "continent": "Asia",
     "ingredients": ["chicken", "tomatoes", "cream", "butter", "garam masala", "garlic", "ginger"]
   },
   {
@@ -52,7 +58,8 @@
     "title": "French Ratatouille",
     "description": "Traditional Provençal vegetable stew with eggplant, zucchini, and tomatoes.",
     "image": "/images/French Ratatouille.jpg",
-    "category": "france",
+    "city": "Nice",
+    "continent": "Europe",
     "ingredients": ["eggplant", "zucchini", "tomatoes", "bell peppers", "onions", "herbs", "olive oil"]
   },
   {
@@ -60,31 +67,55 @@
     "title": "Chinese Dumplings",
     "description": "Delicate dumplings filled with pork and vegetables, served with dipping sauce.",
     "image": "/images/Chinese Dumplings.jpg",
-    "category": "china",
+    "city": "Beijing",
+    "continent": "Asia",
     "ingredients": ["dumpling wrappers", "pork", "cabbage", "scallions", "ginger", "soy sauce", "sesame oil"]
   },
-   { 
-      "id": 9, 
-      "title": "Pad Thai", 
-      "image": "/images/Pad Thai.jpg",
-      "category": "thai",
-       "description":"Pad Thai is a popular Thai dish made with rice noodles, eggs, peanuts, and a variety of vegetables and proteins. It's typically stir-fried with a sweet and sour sauce and served with lime wedges and chili flakes. Pad Thai is a delicious and flavorful dish that is sure to please both vegetarians and meat-eaters.",
-       "ingredients":[""]
-    },
-    { 
-      "id": 10, 
-      "title": "Moussaka", 
-      "image": "/images/Moussaka.jpg",
-      "category": "italy",
-      "description":"Moussaka is a classic Mediterranean casserole made of layers of eggplant, minced meat (often lamb or beef), and a rich tomato sauce, all topped with creamy béchamel and baked until golden. It’s hearty, aromatic, and widely enjoyed across Greece, the Balkans, and the Middle East as a comforting family dish.",
-      "ingredients":["eggplant", "minced meat", "tomato sauce", "béchamel sauce", "cheese"]
+  {
+    "id": 9,
+    "title": "Pad Thai",
+    "description": "Popular Thai stir-fried rice noodle dish with eggs, peanuts, and vegetables.",
+    "image": "/images/Pad Thai.jpg",
+    "city": "Bangkok",
+    "continent": "Asia",
+    "ingredients": ["rice noodles", "eggs", "peanuts", "bean sprouts", "tofu", "lime", "tamarind sauce"]
   },
-    { 
-      "id": 11, 
-      "title": "Jollof Rice", 
-      "image": "/images/Jollof Rice.jpg",
-       "category":"negeria",
-       "description":"Jollof Rice is a popular West African dish made with rice, tomatoes, onions, peppers, and a variety of spices. It's typically cooked in a pressure cooker and served with chicken, meat, or vegetables. Jollof Rice is a delicious and flavorful dish that is sure to please both vegetarians and meat-eaters.",
-      "ingredients":["rice", "tomatoes", "onions", "peppers", "spices", "chicken", "meat", "vegetables"]
-    }
+  {
+    "id": 10,
+    "title": "Moussaka",
+    "description": "Classic Mediterranean casserole layered with eggplant, meat, and béchamel sauce.",
+    "image": "/images/Moussaka.jpg",
+    "city": "Athens",
+    "continent": "Europe",
+    "ingredients": ["eggplant", "minced meat", "tomato sauce", "béchamel sauce", "cheese"]
+  },
+  {
+    "id": 11,
+    "title": "Jollof Rice",
+    "description": "Popular West African rice dish cooked with tomatoes, peppers, and spices.",
+    "image": "/images/Jollof Rice.jpg",
+    "city": "Lagos",
+    "continent": "Africa",
+    "ingredients": ["rice", "tomatoes", "onions", "peppers", "spices", "chicken", "vegetables"]
+  },
+  {
+  "id": 12,
+  "title": "Brazilian Feijoada",
+  "description": "Traditional Brazilian black bean stew cooked with a variety of salted and smoked meats, served with rice and oranges.",
+  "image": "/images/Brazillian feijoada.jpeg",
+  "city": "Rio de Janeiro",
+  "continent": "SouthAmerica",
+  "ingredients": [
+    "black beans",
+    "pork ribs",
+    "smoked sausage",
+    "beef",
+    "garlic",
+    "onion",
+    "bay leaves",
+    "rice",
+    "orange slices"
+  ]
+}
+
 ]

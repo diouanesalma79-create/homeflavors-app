@@ -109,14 +109,12 @@
 }
 
 
-.morocco { background-color: #2E5E4E; }
-.asia { background-color: #2E5E4E; }
-.italy { background-color: #2E5E4E; }
-.west { background-color: #2E5E4E; }
-.mexico { background-color: #2E5E4E; }
-.india { background-color: #2E5E4E; }
-.france { background-color: #2E5E4E; }
-.china { background-color: #2E5E4E; }
+.Africa { background-color: #2E5E4E; }
+.Asia { background-color: #2E5E4E; }
+.Europe { background-color: #2E5E4E; }
+.North_America { background-color: #2E5E4E; }
+.South_America { background-color: #2E5E4E; }
+
 
 .recipes-grid {
   display: grid;
@@ -306,4 +304,31 @@
     min-width: 80px;
     font-size: 0.75rem;
   }
+}
+.voir-plus-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.voir-plus-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.voir-plus-content {
+  text-align: center;
+}
+
+.voir-plus-content h3 {
+  font-size: 1.4rem;
+  color: #111827;
+}
+
+.voir-plus-content p {
+  font-size: 0.9rem;
+  color: #6b7280;
 }

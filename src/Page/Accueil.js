@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import "../style/Accueil.css";
 import foodBg from "../assets/logo/Food-Wallpaper.jpg";
 
@@ -68,11 +67,7 @@ const Accueil = () => {
               </div>
             ))}
           </div>
-
-                    <div className="view-all-container">
-            <Link to="/recipes" className="view-all-btn">Voir toutes les recettes</Link>
           </div>
-        </div>
       </section>
     </div>
   );
