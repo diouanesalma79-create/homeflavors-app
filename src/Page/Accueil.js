@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/Accueil.css";
 import foodBg from "../assets/logo/Food-Wallpaper.jpg";
 import CremeCatalana from "../assets/food/Crema_Catalana_spain.jpg";
@@ -18,7 +18,7 @@ import WarakEnab from "../assets/food/warak_ainab.jpg";
 
 
 const Accueil = () => {
-   const featuredRecipes = [
+  const featuredRecipes = [
   { 
     id: 1, 
     title: "Pad Thai", 
@@ -120,6 +120,7 @@ const Accueil = () => {
 ];
 
 
+
   return (
     <div className="accueil">
       {/* Hero Section */}
@@ -140,18 +141,16 @@ const Accueil = () => {
         <div className="container">
           <h2 className="section-title">Recettes populaires du monde</h2>
           
-          <div className="recipes-grid">
+          <div className="recipes-carousel">
             {featuredRecipes.map((recipe) => (
               <div key={recipe.id} className="recipe-card">
                 <div className="recipe-image-container">
-                  
                   <img 
                     src={recipe.image} 
                     alt={recipe.title}
                     className="recipe-image"
                   />
-                  </div>
-                    
+                </div>
                 <div className="recipe-info">
                   <h3 className="recipe-title">{recipe.title}</h3>
                   <p className="recipe-description">{recipe.description}</p>

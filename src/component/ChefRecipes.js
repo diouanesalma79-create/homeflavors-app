@@ -15,7 +15,7 @@ const ChefRecipes = () => {
   useEffect(() => {
     // For demo purposes, we'll set a default location
     // In a real app, you'd detect the user's location or get it from user preferences
-    setUserLocation('United States'); // Set to a location that doesn't match any chef's country to show "Order (Local Only)" for all
+    setUserLocation('Spain'); // Change this to simulate different locations
   }, []);
 
   // Get chef data
