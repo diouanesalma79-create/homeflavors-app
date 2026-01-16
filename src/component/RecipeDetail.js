@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import recipesData from '../data/recipes.json';
+import recipesData from '../data/enhancedRecipes.json';
+import { canOrderRecipe } from '../utils/locationUtils';
 import '../style/RecipeDetail.css';
 
 const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userLocation, setUserLocation] = useState(''); // This would typically come from user settings/location detection
 
   useEffect(() => {
     // Find recipe by ID
@@ -15,7 +17,19 @@ const RecipeDetail = () => {
       setRecipe(foundRecipe);
     }
     setLoading(false);
+    
+    // Simulate getting user location (in a real app, this would be from geolocation API or user settings)
+    // For demo purposes, we'll set a default location
+    setUserLocation('Spain'); // Change this to simulate different locations
   }, [id]);
+
+  const handleOrderClick = (recipe) => {
+    if (canOrderRecipe(userLocation, recipe.country)) {
+      alert(`Order placed for ${recipe.title}!`);
+    } else {
+      alert(`Sorry, this recipe is only available in ${recipe.country}.`);
+    }
+  };
 
   if (loading) {
     return <div className="recipe-detail-loading">Loading...</div>;
@@ -57,8 +71,24 @@ const RecipeDetail = () => {
               </div>
               
               <div className="actions-section">
+                {recipe.chefId && (
+                  <div className="chef-info">
+                    <p>By <Link to={`/chef/${recipe.chefId}`}>{recipe.chefName}</Link></p>
+                    <p className="recipe-region">Region: {recipe.country}</p>
+                  </div>
+                )}
                 <button className="watch-video-btn">Watch Video Tutorial</button>
                 <button className="save-recipe-btn">Save Recipe</button>
+                {recipe.chefId && (
+                  <button 
+                    className={`order-btn ${canOrderRecipe(recipe.country) ? 'active' : 'disabled'}`}
+                    onClick={() => handleOrderClick(recipe)}
+                    disabled={!canOrderRecipe(recipe.country)}
+                    title={canOrderRecipe(recipe.country) ? '' : `This recipe is only available in ${recipe.country}`}
+                  >
+                    Order Now
+                  </button>
+                )}
               </div>
             </div>
           </div>

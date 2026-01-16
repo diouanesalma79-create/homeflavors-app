@@ -142,6 +142,64 @@
   background-color: #c9a167;
 }
 
+.chef-info {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #2E5E4E;
+}
+
+.chef-info p {
+  margin: 0.25rem 0;
+  color: #5A3E2B;
+}
+
+.chef-info a {
+  color: #2E5E4E;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chef-info a:hover {
+  text-decoration: underline;
+}
+
+.recipe-region {
+  font-style: italic;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.order-btn {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.order-btn.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.order-btn.active:hover {
+  background-color: #218838;
+}
+
+.order-btn.disabled {
+  background-color: #6c757d;
+  color: white;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
 /* Responsive design */
 @media (max-width: 992px) {
   .recipe-content-wrapper {

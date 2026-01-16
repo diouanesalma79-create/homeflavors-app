@@ -1,0 +1,187 @@
+/* Chef Recipes Page Styles */
+.chef-recipes-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f0e8 0%, #faf8f3 100%);
+}
+
+/* Chef Header Section */
+.chef-header {
+  background: linear-gradient(135deg, #2d5016 0%, #5c452f 100%);
+  color: white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.chef-profile {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.chef-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.chef-details h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  color: #f5f0e8;
+}
+
+.chef-country {
+  font-size: 1.2rem;
+  color: #c9a167;
+  margin: 0 0 0.5rem 0;
+  font-style: italic;
+}
+
+.chef-description {
+  font-size: 1rem;
+  color: #e8dfd0;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.chef-recipe-count {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #c9a167;
+  margin: 0;
+}
+
+/* Chef Recipes Section */
+.chef-recipes-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 2rem 1rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2d5016;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(92, 69, 47, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(45, 80, 22, 0.3);
+}
+
+.recipe-image-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recipe-card:hover .recipe-image {
+  transform: scale(1.05);
+}
+
+.recipe-info {
+  padding: 1.5rem;
+}
+
+.recipe-title {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+  color: #2d5016;
+  font-weight: 600;
+}
+
+.recipe-description {
+  color: #4a3728;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+}
+
+.recipe-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.order-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.order-btn.active {
+  background-color: #c9a167;
+  color: white;
+}
+
+.order-btn.active:hover {
+  background-color: #d4a574;
+  transform: scale(1.05);
+}
+
+.order-btn.disabled {
+  background-color: #c9a167;
+  color: white;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.no-recipes {
+  text-align: center;
+  color: #4a3728;
+  font-size: 1.1rem;
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chef-profile {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .chef-details h1 {
+    font-size: 2rem;
+  }
+  
+  .recipes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chef-header {
+    padding: 1rem 0;
+  }
+}

@@ -9,6 +9,8 @@ import moroccoFood from '../assets/logo/moroccofood.jpg';
 import japanFood from '../assets/logo/japanfood.jpg';
 
 
+import recipesData from '../data/enhancedRecipes.json';
+
 const Chefs = () => {
   // Sample chef data
   const chefs = [
@@ -62,6 +64,12 @@ const Chefs = () => {
   }
 ];
 
+  // Function to get the actual recipe count for a chef
+  const getChefRecipeCount = (chefId) => {
+    const count = recipesData.filter(recipe => recipe.chefId === chefId).length;
+    return count;
+  };
+
   return (
     <div className="chefs-page">
       {/* Hero Section */}
@@ -111,7 +119,7 @@ const Chefs = () => {
                   <p className="chef-country">{chef.country}</p>
                   <p className="chef-description">{chef.description}</p>
                   <div className="chef-stats">
-                    <span className="recipes-count">{chef.recipesCount} recipes</span>
+                    <span className="recipes-count">{getChefRecipeCount(chef.id)} recipes</span>
                   </div>
                   <Link to={`/chef/${chef.id}`} className="view-recipes-btn">
                     View Recipes

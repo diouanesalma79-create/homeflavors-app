@@ -7,6 +7,7 @@ import RecipeExploration from './component/RecipeExploration';
 import RecipeDetail from './component/RecipeDetail';
 import ChatboxA from './component/ChatboxA';
 import Chefs from './component/Chefs';
+import ChefRecipes from './component/ChefRecipes';
 import BecomeAChef from './component/BecomeAChef';
 import UserTypeSelection from './component/UserTypeSelection';
 import VisitorLogin from './component/VisitorLogin';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/recipes" element={<RecipeExploration />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/chefs" element={<Chefs />} />
+          <Route path="/chef/:chefId" element={<ChefRecipes />} />
           <Route path="/become-chef" element={<BecomeAChef />} />
           <Route path="/login" element={<UserTypeSelection />} />
           <Route path="/login/visitor" element={<VisitorLogin />} />
