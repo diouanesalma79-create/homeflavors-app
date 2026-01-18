@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import recipesData from '../data/enhancedRecipes.json';
+import recipesData from '../data/recipes.json';
 import { canOrderRecipe } from '../utils/locationUtils';
 import '../style/RecipeDetail.css';
 
