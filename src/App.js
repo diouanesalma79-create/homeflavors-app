@@ -11,9 +11,11 @@ import ChefRecipes from './component/ChefRecipes';
 import BecomeAChef from './component/BecomeAChef';
 import UserTypeSelection from './component/UserTypeSelection';
 import VisitorLogin from './component/VisitorLogin';
-import ChefLogin from './component/ChefLogin';
+// import ChefLogin from './component/ChefLogin';
+import VisitorLoginForm from './component/VisitorLoginForm';
 import ChefLoginForm from './component/ChefLoginForm';
 import ErrorPage from './component/ErrorPage';
+import Order from './component/Order';
 import './App.css';
 
 function App() {
@@ -28,8 +30,10 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/chefs" element={<Chefs />} />
           <Route path="/chef/:chefId" element={<ChefRecipes />} />
+          <Route path="/order/:recipeId" element={<Order />} />
           <Route path="/become-chef" element={<BecomeAChef />} />
           <Route path="/login" element={<UserTypeSelection />} />
+          <Route path="/login/visitor_Form" element={<VisitorLoginForm />} />
           <Route path="/login/visitor" element={<VisitorLogin />} />
           <Route path="/login/chef" element={<ChefLoginForm />} />
           <Route path="/chatbox" element={<ChatboxA />} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../style/ChefRecipes.css';
 import recipesData from '../data/enhancedRecipes.json';
 import chefsData from '../data/chefsData';
@@ -68,15 +69,17 @@ const ChefRecipes = () => {
                     <p className="recipe-description">{recipe.description}</p>
                     
                     <div className="recipe-actions">
-                      {canOrderRecipe(userLocation, currentChef.country) ? (
+                      {/* {canOrderRecipe(userLocation, currentChef.country) ? ( */}
+                        <Link to={`/order/${recipe.id}`}>
                         <button className="order-btn active">
                           Order
                         </button>
-                      ) : (
-                        <button className="order-btn disabled" disabled title={`Available only in ${currentChef.country}`}>
-                          Order (Local Only)
-                        </button>
-                      )}
+                        </Link>
+                      {/* // ) : (
+                      //   <button className="order-btn disabled" disabled title={`Available only in ${currentChef.country}`}>
+                      //     Order (Local Only)
+                      //   </button>
+                      // )} */}
                     </div>
                   </div>
                 </div>

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/VisitorLogin.css';
+import '../style/ChefLoginForm.css';
 
-const VisitorLogin = () => {
+const VisitorLoginForm = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -25,9 +24,6 @@ const VisitorLogin = () => {
     const newErrors = {};
     if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.password) newErrors.password = 'Password is required';
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -35,17 +31,17 @@ const VisitorLogin = () => {
     }
 
     // Handle form submission
-    console.log('Visitor login form submitted:', formData);
+    console.log('Chef login form submitted:', formData);
     // Here you would typically send the data to your backend
-    alert('Visitor registration successful!');
+    alert('Chef login successful!');
     navigate('/recipes');
   };
 
   return (
     <div className="visitor-login-page">
       <div className="visitor-login-container">
-        <h1>Visitor Registration</h1>
-        <p className="subtitle">Join our community to receive recipe notifications</p>
+        <h1>Visitor Login</h1>
+        <p className="subtitle">Welcome back to HomeFlavors</p>
         
         <form className="visitor-form" onSubmit={handleSubmit}>
           <div className="form-group">
@@ -71,34 +67,20 @@ const VisitorLogin = () => {
               value={formData.password}
               onChange={handleChange}
               className={errors.password ? 'error' : ''}
-              placeholder="Create a password"
+              placeholder="Enter your password"
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password *</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={errors.confirmPassword ? 'error' : ''}
-              placeholder="Confirm your password"
-            />
-            {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
-          </div>
-
-          <button type="submit" className="submit-button">Register as Visitor</button>
+          <button type="submit" className="submit-button">Log in as Visitor</button>
         </form>
 
-         <div className="back-link">
-          <p>Have an account? <span onClick={() => navigate('/login/visitor_Form')} style={{color: '#8a5a44', fontWeight: '600', textDecoration: 'underline', cursor: 'pointer'}}>Sign in here</span></p>
+        <div className="back-link">
+          <p>Don't have an account? <span onClick={() => navigate('/login/visitor')} style={{color: '#8a5a44', fontWeight: '600', textDecoration: 'underline', cursor: 'pointer'}}>Sign up here</span></p>
         </div>
       </div>
     </div>
   );
 };
 
-export default VisitorLogin;
+export default VisitorLoginForm;

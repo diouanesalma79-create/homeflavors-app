@@ -10,7 +10,7 @@ const UserTypeSelection = () => {
         <p className="subtitle">Are you visiting or sharing recipes today?</p>
         
         <div className="user-type-options">
-          <Link to="/login/visitor" className="option-card visitor-option">
+          <Link to="/login/visitor_Form" className="option-card visitor-option">
             <div className="option-icon">👥</div>
             <h3>I'm a Visitor</h3>
             <p>Browse recipes, discover new flavors, and enjoy cooking inspiration</p>
