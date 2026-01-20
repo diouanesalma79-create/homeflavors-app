@@ -13,6 +13,7 @@ import tajineEggTomato from "../assets/food/tajine_egg_tomato.jpg";
 import Taktouka from "../assets/food/taktouka.jpg";
 import WarakEnab from "../assets/food/warak_ainab.jpg";
 
+
 const Accueil = () => {
   // Mood-based filter options
   const moodFilters = [

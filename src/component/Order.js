@@ -12,6 +12,7 @@ const Order = ({ dish }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isOpen, setIsOpen] = useState(false); // <-- modal open state
 
   const handleChange = (e) => {
     setFormData({
@@ -42,98 +43,116 @@ const Order = ({ dish }) => {
     };
 
     console.log('Order submitted:', orderData);
-
     alert('Your order has been placed successfully!');
+    setIsOpen(false); // close modal after submission
   };
 
- return (
-  <div className="order-form-container">
-    <div className="order-form">
+  return (
+    <>
+      {/* Button to open popup */}
+      <button
+        className="view-recipes-btn"
+        onClick={() => setIsOpen(true)}
+      >
+        Order This Dish
+      </button>
 
-      <h2>Order This Dish</h2>
-      <p className="subtitle">
-        Fresh homemade flavors, delivered to you
-      </p>
+      {/* Modal */}
+      {isOpen && (
+        <div className="order-page">
+          <div className="order-form-container">
+            <span
+              className="close-popup"
+              onClick={() => setIsOpen(false)}
+            >
+              &times;
+            </span>
 
-      {dish && (
-        <div className="selected-dish">
-          <p><strong>Dish:</strong> {dish.title}</p>
-          <p><strong>Price:</strong> ${dish.price}</p>
+            <h2>Order This Dish</h2>
+            <p className="subtitle">
+              Fresh homemade flavors, delivered to you
+            </p>
+
+            {dish && (
+              <div className="selected-dish">
+                <p><strong>Dish:</strong> {dish.title}</p>
+                <p><strong>Price:</strong> ${dish.price}</p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="order-form">
+              <div className="form-group">
+                <label>Full Name *</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  className={errors.fullName ? 'error' : ''}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={errors.email ? 'error' : ''}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Phone *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Delivery Address *</label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  rows="3"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  min="1"
+                  value={formData.quantity}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Note (optional)</label>
+                <textarea
+                  name="note"
+                  value={formData.note}
+                  onChange={handleChange}
+                  rows="2"
+                />
+              </div>
+
+              <button type="submit" className="submit-button">
+                Confirm Order
+              </button>
+            </form>
+          </div>
         </div>
       )}
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Full Name *</label>
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            className={errors.fullName ? 'error' : ''}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Email *</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? 'error' : ''}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Phone *</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Delivery Address *</label>
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            rows="3"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Quantity</label>
-          <input
-            type="number"
-            name="quantity"
-            min="1"
-            value={formData.quantity}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Note (optional)</label>
-          <textarea
-            name="note"
-            value={formData.note}
-            onChange={handleChange}
-            rows="2"
-          />
-        </div>
-
-        <button type="submit" className="submit-button">
-          Confirm Order
-        </button>
-      </form>
-
-    </div>
-  </div>
-);
+    </>
+  );
 };
 
 export default Order;

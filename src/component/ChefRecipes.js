@@ -1,45 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../style/ChefRecipes.css';
 import recipesData from '../data/enhancedRecipes.json';
 import chefsData from '../data/chefsData';
-import { getUserLocation, canOrderRecipe } from '../utils/locationUtils';
+import '../style/Order.css';
 
 const ChefRecipes = () => {
   const { chefId } = useParams();
+  const navigate = useNavigate();
   const [chefRecipes, setChefRecipes] = useState([]);
   const [currentChef, setCurrentChef] = useState(null);
-  const [userLocation, setUserLocation] = useState(''); // This would typically come from user settings/location detection
+  const [activeRecipe, setActiveRecipe] = useState(null); // For popup
+  const [userLocation, setUserLocation] = useState('');
 
-  // Simulate getting user location (in a real app, this would be from geolocation API or user settings)
+  // Simulate getting user location
   useEffect(() => {
-    // For demo purposes, we'll set a default location
-    // In a real app, you'd detect the user's location or get it from user preferences
-    setUserLocation('United States'); // Set to a location that doesn't match any chef's country to show "Order (Local Only)" for all
+    setUserLocation('United States'); 
   }, []);
 
-  // Get chef data
+  // Get chef and recipes
   useEffect(() => {
     const chefData = chefsData.find(chef => chef.id === parseInt(chefId));
     setCurrentChef(chefData);
 
-      // Filter recipes based on the chef's ID
     const filteredRecipes = recipesData.filter(recipe => recipe.chefId === parseInt(chefId));
-
-    // Set the chef recipes
     setChefRecipes(filteredRecipes);
   }, [chefId]);
 
+  if (!currentChef) return <div>Loading...</div>;
 
-
-  if (!currentChef) {
-    return <div>Loading...</div>;
-  }
+  const openPopup = (recipe) => setActiveRecipe(recipe);
+  const closePopup = () => setActiveRecipe(null);
 
   return (
     <div className="chef-recipes-page">
-      {/* Chef Header Section */}
+      {/* Chef Header */}
       <section className="chef-header">
         <div className="chef-profile">
           <img src={currentChef.image} alt={currentChef.name} className="chef-avatar" />
@@ -67,19 +62,10 @@ const ChefRecipes = () => {
                   <div className="recipe-info">
                     <h3 className="recipe-title">{recipe.title}</h3>
                     <p className="recipe-description">{recipe.description}</p>
-                    
                     <div className="recipe-actions">
-                      {/* {canOrderRecipe(userLocation, currentChef.country) ? ( */}
-                        <Link to={`/order/${recipe.id}`}>
-                        <button className="order-btn active">
-                          Order
-                        </button>
-                        </Link>
-                      {/* // ) : (
-                      //   <button className="order-btn disabled" disabled title={`Available only in ${currentChef.country}`}>
-                      //     Order (Local Only)
-                      //   </button>
-                      // )} */}
+                      <button className="order-btn active" onClick={() => navigate(`/Order/${recipe.id}`)}>
+                        Order
+                      </button>
                     </div>
                   </div>
                 </div>
