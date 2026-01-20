@@ -72,79 +72,90 @@ const Accueil = () => {
         <div className="hero-overlay">
           <div className="hero-content">
             <h1 className="hero-title">Partagez et découvrez des</h1>
-            <h2 className="hero-subtitle">saveurs authentiques.</h2>
-            <p className="hero-tagline">Votre pont culturel gustatif.</p>
+            <h2 className="hero-subtitle">saveurs authentiques  Votre pont culturel gustatif.</h2>
           </div>
         </div>
       </div>
 
-      {/* Popular Recipes Section */}
-      <section className="popular-recipes-section">
-        <div className="container">
-          <h2 className="section-title">Recettes populaires du monde</h2>
+  {/* Popular Recipes Section */}
+<section className="popular-recipes-section">
 
-          <div className="recipes-scroll">
-            <div className="recipes-grid-horizontal">
-              {featuredRecipes.map((recipe) => (
-                <div key={recipe.id} className="recipe-card">
-                  <div className="recipe-image-container">
-                    <img src={recipe.image} alt={recipe.title} className="recipe-image" />
-                  </div>
-                  <div className="recipe-info">
-                    <h3 className="recipe-title">{recipe.title}</h3>
-                    <p className="recipe-description">{recipe.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+  {/* Titre centré */}
+  <div className="container">
+    <h2 className="section-title">Recettes populaires du monde</h2>
+  </div>
 
-      {/* Recommendations based on your mood */}
-      <section className="mood-recommendations-section">
-        <div className="container">
-          <h2 className="section-title">Recommendations based on your mood</h2>
-          
-          {/* Filter Chips */}
-          <div className="filter-chips-container">
-            {moodFilters.map((filter) => (
-              <button
-                key={filter.id}
-                className={`filter-chip ${selectedFilter === filter.id ? 'active' : ''}`}
-                onClick={() => setSelectedFilter(filter.id)}
-                aria-pressed={selectedFilter === filter.id}
-              >
-                {filter.name}
-              </button>
-            ))}
-          </div>
-          
-          {/* Recommendations Grid */}
-          <div className="recommendations-grid">
-            {filteredRecipes.map((recipe, index) => (
-              <div 
-                key={recipe.id} 
-                className="mood-recipe-card"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+        {/* Cards en full width */}
+        <div className="recipes-scroll full-width-scroll">
+          <div className="recipes-grid-horizontal">
+            {featuredRecipes.map((recipe) => (
+              <div key={recipe.id} className="recipe-card">
                 <div className="recipe-image-container">
-                  <img 
-                    src={recipe.image} 
-                    alt={recipe.title} 
-                    className="recipe-image" 
-                    loading="lazy" 
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="recipe-image"
                   />
                 </div>
                 <div className="recipe-info">
                   <h3 className="recipe-title">{recipe.title}</h3>
-                  <p className="recipe-label">{recipe.label}</p>
+                  <p className="recipe-description">{recipe.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
       </section>
+            {/* Recommendations based on your mood */}
+            <section className="mood-recommendations-section">
+
+              {/* Titre + filtres centrés */}
+              <div className="container">
+                <h2 className="section-title">Recommendations based on your mood</h2>
+
+                <div className="filter-chips-container">
+                  {moodFilters.map((filter) => (
+                    <button
+                      key={filter.id}
+                      className={`filter-chip ${selectedFilter === filter.id ? 'active' : ''}`}
+                      onClick={() => setSelectedFilter(filter.id)}
+                      aria-pressed={selectedFilter === filter.id}
+                    >
+                      {filter.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Cards en full width */}
+              <div className="recommendations-scroll full-width-scroll">
+                <div className="recommendations-grid-horizontal">
+                  {filteredRecipes.map((recipe, index) => (
+                    <div
+                      key={recipe.id}
+                      className="mood-recipe-card"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="recipe-image-container">
+                        <img
+                          src={recipe.image}
+                          alt={recipe.title}
+                          className="recipe-image"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="recipe-info">
+                        <h3 className="recipe-title">{recipe.title}</h3>
+                        <p className="recipe-label">{recipe.label}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </section>
+
     </div>
   );
 };
