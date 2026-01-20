@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import UserService from '../services/UserService';
 import '../style/BecomeAChef.css';
 
 const BecomeAChef = () => {
@@ -9,30 +10,51 @@ const BecomeAChef = () => {
     nationality: '',
     addRecipe: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    profilePhoto: null
   });
+  const [previewImage, setPreviewImage] = useState(null);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value, files } = e.target;
+    if (name === 'profilePhoto') {
+      const file = files[0];
+      if (file) {
+        setFormData(prev => ({ ...prev, profilePhoto: file }));
+        // Create preview
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validation
+    // Comprehensive validation
     const newErrors = {};
     if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.fullName) newErrors.fullName = 'Full name is required';
     if (!formData.nationality) newErrors.nationality = 'Nationality is required';
     if (!formData.addRecipe) newErrors.addRecipe = 'Recipe description is required';
     if (!formData.password) newErrors.password = 'Password is required';
+    if (formData.password && formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    if (!formData.confirmPassword) newErrors.confirmPassword = 'Please confirm your password';
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
+    }
+    
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // eslint-disable-line no-useless-escape
+    if (formData.email && !emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -40,11 +62,36 @@ const BecomeAChef = () => {
       return;
     }
 
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Here you would typically send the data to your backend
-    alert('Registration successful! Welcome to HomeFlavors.');
-    navigate('/login');
+    try {
+      // Prepare user data
+      const userData = {
+        email: formData.email,
+        fullName: formData.fullName,
+        nationality: formData.nationality,
+        addRecipe: formData.addRecipe,
+        password: formData.password,
+        role: 'chef',
+        isChefRegistered: true,
+        profilePhoto: previewImage
+      };
+
+      // Register user
+      const newUser = UserService.registerUser(userData);
+      
+      console.log('Chef registration successful:', newUser);
+      
+      // Automatically log in the chef
+      UserService.authenticateUser(formData.email, formData.password, 'chef');
+      
+      // Clear any previous errors
+      setErrors({});
+      
+      alert(`Welcome ${formData.fullName}! Your registration as a Home Chef is complete.`);
+      navigate('/dashboard/chef');
+    } catch (error) {
+      setErrors({ general: error.message });
+      console.error('Registration error:', error);
+    }
   };
 
   const nationalities = [
@@ -95,6 +142,24 @@ const BecomeAChef = () => {
               placeholder="Enter your full name"
             />
             {errors.fullName && <span className="error-message">{errors.fullName}</span>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="profilePhoto">Profile Photo (Optional)</label>
+            <input
+              type="file"
+              id="profilePhoto"
+              name="profilePhoto"
+              accept="image/*"
+              onChange={handleChange}
+              className={errors.profilePhoto ? 'error' : ''}
+            />
+            {previewImage && (
+              <div className="photo-preview">
+                <img src={previewImage} alt="Profile preview" />
+              </div>
+            )}
+            {errors.profilePhoto && <span className="error-message">{errors.profilePhoto}</span>}
           </div>
 
           <div className="form-group">
@@ -155,6 +220,8 @@ const BecomeAChef = () => {
             />
             {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
           </div>
+
+          {errors.general && <div className="error-message general-error" style={{color: '#d32f2f', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px', marginBottom: '15px'}}>{errors.general}</div>}
 
           <button type="submit" className="submit-button">Register as Chef</button>
         </form>

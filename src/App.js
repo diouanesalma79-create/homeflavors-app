@@ -14,6 +14,8 @@ import VisitorLogin from './component/VisitorLogin';
 // import ChefLogin from './component/ChefLogin';
 import VisitorLoginForm from './component/VisitorLoginForm';
 import ChefLoginForm from './component/ChefLoginForm';
+import Dashboard from './component/Dashboard';
+import ProtectedRoute from './component/ProtectedRoute';
 import ErrorPage from './component/ErrorPage';
 import Order from './component/Order';
 import './App.css';
@@ -37,6 +39,17 @@ function App() {
           <Route path="/login/visitor" element={<VisitorLogin />} />
           <Route path="/login/chef" element={<ChefLoginForm />} />
           <Route path="/chatbox" element={<ChatboxA />} />
+          
+          {/* Dashboard Routes */}
+          <Route 
+            path="/dashboard/:userType" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
           <Route path="*" element={<ErrorPage />} />
         </Routes>
 
