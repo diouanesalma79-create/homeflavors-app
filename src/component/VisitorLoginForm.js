@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserService from '../services/UserService';
 import '../style/ChefLoginForm.css';
 
 const VisitorLoginForm = () => {
@@ -30,11 +31,15 @@ const VisitorLoginForm = () => {
       return;
     }
 
-    // Handle form submission
-    console.log('Chef login form submitted:', formData);
-    // Here you would typically send the data to your backend
-    alert('Chef login successful!');
-    navigate('/recipes');
+    try {
+      // Authenticate user
+      const user = UserService.authenticateUser(formData.email, formData.password, 'visitor');
+      
+      console.log('Visitor login successful:', user);
+      navigate('/dashboard/visitor');
+    } catch (error) {
+      setErrors({ general: error.message });
+    }
   };
 
   return (
@@ -71,6 +76,8 @@ const VisitorLoginForm = () => {
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
+
+          {errors.general && <div className="error-message general-error">{errors.general}</div>}
 
           <button type="submit" className="submit-button">Log in as Visitor</button>
         </form>

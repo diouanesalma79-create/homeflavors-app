@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserService from '../services/UserService';
 import '../style/ChefLoginForm.css';
 
 const ChefLoginForm = () => {
@@ -30,11 +31,25 @@ const ChefLoginForm = () => {
       return;
     }
 
-    // Handle form submission
-    console.log('Chef login form submitted:', formData);
-    // Here you would typically send the data to your backend
-    alert('Chef login successful!');
-    navigate('/recipes');
+    try {
+      // Authenticate user
+      const user = UserService.authenticateUser(formData.email, formData.password, 'chef');
+      
+      console.log('Chef login successful:', user);
+      setErrors({}); // Clear any previous errors
+      navigate('/dashboard/chef');
+    } catch (error) {
+      const errorMessage = error.message;
+      // If the error is about needing to register first, redirect to become chef page
+      if (errorMessage.includes('register first')) {
+        setErrors({ general: 'Chef must register first via Become a Home Chef form. Redirecting...' });
+        setTimeout(() => {
+          navigate('/become-chef');
+        }, 2000); // Delay for 2 seconds before redirect
+      } else {
+        setErrors({ general: errorMessage });
+      }
+    }
   };
 
   return (
@@ -71,6 +86,8 @@ const ChefLoginForm = () => {
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
+
+          {errors.general && <div className="error-message general-error" style={{color: '#d32f2f', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px', marginBottom: '15px'}}>{errors.general}</div>}
 
           <button type="submit" className="submit-button">Log in as Chef</button>
         </form>
