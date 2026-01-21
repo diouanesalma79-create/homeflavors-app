@@ -107,6 +107,31 @@
   -ms-overflow-style: none;
 }
 
+/* Auto-scroll container for popular recipes */
+.popular-recipes-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-bottom: 1.5rem;
+  scroll-behavior: smooth;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.popular-recipes-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Duplicate cards for seamless scroll effect */
+.recipe-card.duplicate-card {
+  /* Optional: Add subtle indication that these are duplicates if needed */
+}
+
+/* Pause animation on hover */
+.popular-recipes-scroll:hover {
+  /* Animation will be paused by JavaScript */
+}
+
 .recipes-scroll::-webkit-scrollbar,
 .recommendations-scroll::-webkit-scrollbar {
   display: none;
@@ -118,6 +143,15 @@
   display: flex;
   gap: 1.25rem;
   width: max-content;
+}
+
+/* For popular recipes grid with infinite scroll */
+.popular-recipes-scroll .recipes-grid-horizontal {
+  display: flex;
+  gap: 1.25rem;
+  /* Double the width to accommodate duplicate items for seamless loop */
+  width: max-content;
+  flex-wrap: nowrap;
 }
 
 /* ================= CARDS ================= */
@@ -172,6 +206,16 @@
   color: #777;
 }
 
+/* Duplicate card styling */
+.recipe-card.duplicate-card {
+  flex: 0 0 260px;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 /* ================= FILTER BUTTONS ================= */
 .filter-chips-container {
   display: flex;
@@ -216,11 +260,13 @@
 @media (max-width: 768px) {
   .hero-section { height: 350px; }
   .recipe-card,
-  .mood-recipe-card { flex: 0 0 220px; }
+  .mood-recipe-card,
+  .recipe-card.duplicate-card { flex: 0 0 220px; }
 }
 
 @media (max-width: 576px) {
   .hero-section { height: 300px; }
   .recipe-card,
-  .mood-recipe-card { flex: 0 0 200px; }
+  .mood-recipe-card,
+  .recipe-card.duplicate-card { flex: 0 0 200px; }
 }

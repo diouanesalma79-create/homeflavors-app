@@ -56,13 +56,15 @@ const HeaderActions = () => {
   
       {/* Actions */}
       <div className="header-actions">
-        <button
-          type="button"
-          className="header-btn header-btn--chatbox"
-          onClick={handleChatboxClick}
-        >
-          ChatboxAI
-        </button>
+        {!isAuthenticated && (
+          <button
+            type="button"
+            className="header-btn header-btn--chatbox"
+            onClick={handleChatboxClick}
+          >
+            ChatboxAI
+          </button>
+        )}
 
         {isAuthenticated ? (
           <>
