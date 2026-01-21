@@ -223,7 +223,16 @@ const BecomeAChef = () => {
 
           {errors.general && <div className="error-message general-error" style={{color: '#d32f2f', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px', marginBottom: '15px'}}>{errors.general}</div>}
 
-          <button type="submit" className="submit-button">Register as Chef</button>
+          <div className="form-buttons">
+            <button 
+              type="button" 
+              className="cancel-button"
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </button>
+            <button type="submit" className="submit-button">Register as Chef</button>
+          </div>
         </form>
 
         <div className="login-link">

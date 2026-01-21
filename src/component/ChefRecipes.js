@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import ChefOrderModal from './ChefOrderModal';
 import '../style/ChefRecipes.css';
 import recipesData from '../data/enhancedRecipes.json';
 import chefsData from '../data/chefsData';
-import '../style/Order.css';
 
 const ChefRecipes = () => {
   const { chefId } = useParams();
   const navigate = useNavigate();
   const [chefRecipes, setChefRecipes] = useState([]);
   const [currentChef, setCurrentChef] = useState(null);
-  const [activeRecipe, setActiveRecipe] = useState(null); // For popup
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [userLocation, setUserLocation] = useState('');
 
   // Simulate getting user location
@@ -29,8 +30,7 @@ const ChefRecipes = () => {
 
   if (!currentChef) return <div>Loading...</div>;
 
-  const openPopup = (recipe) => setActiveRecipe(recipe);
-  const closePopup = () => setActiveRecipe(null);
+
 
   return (
     <div className="chef-recipes-page">
@@ -63,7 +63,13 @@ const ChefRecipes = () => {
                     <h3 className="recipe-title">{recipe.title}</h3>
                     <p className="recipe-description">{recipe.description}</p>
                     <div className="recipe-actions">
-                      <button className="order-btn active" onClick={() => navigate(`/Order/${recipe.id}`)}>
+                      <button 
+                        className="order-btn active" 
+                        onClick={() => {
+                          setSelectedRecipe(recipe);
+                          setIsOrderModalOpen(true);
+                        }}
+                      >
                         Order
                       </button>
                     </div>
@@ -76,6 +82,14 @@ const ChefRecipes = () => {
           )}
         </div>
       </section>
+      <ChefOrderModal 
+        isOpen={isOrderModalOpen}
+        onClose={() => {
+          setIsOrderModalOpen(false);
+          setSelectedRecipe(null);
+        }}
+        dish={selectedRecipe}
+      />
     </div>
   );
 };

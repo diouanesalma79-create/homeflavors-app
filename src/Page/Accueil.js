@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../style/Accueil.css";
 import foodBg from "../assets/logo/Food-Wallpaper.jpg";
 import CremeCatalana from "../assets/food/Crema_Catalana_spain.jpg";
@@ -12,7 +12,6 @@ import Rfissa from "../assets/food/Rifissa marocain.jpg";
 import tajineEggTomato from "../assets/food/tajine_egg_tomato.jpg";
 import Taktouka from "../assets/food/taktouka.jpg";
 import WarakEnab from "../assets/food/warak_ainab.jpg";
-
 
 const Accueil = () => {
   // Mood-based filter options
@@ -65,6 +64,100 @@ const Accueil = () => {
     if (selectedFilter === 'global') return true; // Show all for global
     return true;
   }).slice(0, 6); // Limit to 6 recipes
+  
+  // Auto-scroll functionality for popular recipes section
+  const popularRecipesRef = useRef(null);
+  const scrollInterval = useRef(null);
+  const isHovered = useRef(false);
+
+  // Function to handle mouse enter event
+  const handlePopularRecipesMouseEnter = () => {
+    isHovered.current = true;
+    if (scrollInterval.current) {
+      clearInterval(scrollInterval.current);
+      scrollInterval.current = null;
+    }
+  };
+
+  // Function to handle mouse leave event
+  const handlePopularRecipesMouseLeave = () => {
+    isHovered.current = false;
+    startAutoScroll();
+  };
+
+  // Function to start auto-scroll
+  const startAutoScroll = () => {
+    // Clear any existing interval
+    if (scrollInterval.current) {
+      clearInterval(scrollInterval.current);
+    }
+
+    // Set a timeout before starting the scroll (2 second delay as requested)
+    setTimeout(() => {
+      if (!isHovered.current) { // Only start if not hovered
+        scrollInterval.current = setInterval(() => {
+          const container = popularRecipesRef.current;
+          if (container && !isHovered.current) {
+            // Scroll by a small amount for smooth animation
+            const scrollAmount = 1; // Adjust this value to control scroll speed
+            
+            // Check if we've reached the halfway point of the duplicated content
+            // This creates a seamless infinite scroll effect
+            if (container.scrollLeft >= container.scrollWidth / 2) {
+              // Reset to beginning for infinite loop
+              // Using scrollTop to avoid triggering scroll events that might interfere
+              container.scrollLeft = 0;
+            } else {
+              // Continue scrolling
+              container.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }, 20); // Adjust this value for scroll frequency (lower = faster)
+      }
+    }, 2000); // 2 second delay before starting scroll
+    
+    // Alternative implementation using requestAnimationFrame for smoother scrolling
+    /*const animateScroll = () => {
+      if (!isHovered.current) {
+        const container = popularRecipesRef.current;
+        if (container) {
+          // Incrementally scroll
+          container.scrollLeft += 0.5; // Fine-grained scrolling
+          
+          // Reset to beginning when reaching the halfway point for seamless loop
+          if (container.scrollLeft >= container.scrollWidth / 2) {
+            container.scrollLeft = 0;
+          }
+        }
+      }
+      scrollInterval.current = requestAnimationFrame(animateScroll);
+    };
+    
+    setTimeout(() => {
+      if (!isHovered.current) {
+        scrollInterval.current = requestAnimationFrame(animateScroll);
+      }
+    }, 2000); // 2 second delay before starting scroll*/
+  };
+
+  // Initialize auto-scroll when component mounts
+  useEffect(() => {
+    // Wait for the component to render before starting auto-scroll
+    const initTimer = setTimeout(() => {
+      startAutoScroll();
+    }, 100);
+
+    // Cleanup on unmount
+    return () => {
+      clearTimeout(initTimer);
+      if (scrollInterval.current) {
+        clearInterval(scrollInterval.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="accueil">
@@ -78,36 +171,57 @@ const Accueil = () => {
         </div>
       </div>
 
-  {/* Popular Recipes Section */}
+ {/* Popular Recipes Section */}
 <section className="popular-recipes-section">
 
-  {/* Titre centré */}
-  <div className="container">
-    <h2 className="section-title">Recettes populaires du monde</h2>
-  </div>
+ {/* Titre centré */}
+ <div className="container">
+   <h2 className="section-title">Recettes populaires du monde</h2>
+ </div>
 
-        {/* Cards en full width */}
-        <div className="recipes-scroll full-width-scroll">
-          <div className="recipes-grid-horizontal">
-            {featuredRecipes.map((recipe) => (
-              <div key={recipe.id} className="recipe-card">
-                <div className="recipe-image-container">
-                  <img
-                    src={recipe.image}
-                    alt={recipe.title}
-                    className="recipe-image"
-                  />
-                </div>
-                <div className="recipe-info">
-                  <h3 className="recipe-title">{recipe.title}</h3>
-                  <p className="recipe-description">{recipe.description}</p>
-                </div>
+      {/* Cards en full width */}
+      <div 
+        ref={popularRecipesRef}
+        className="popular-recipes-scroll recipes-scroll full-width-scroll"
+        onMouseEnter={handlePopularRecipesMouseEnter}
+        onMouseLeave={handlePopularRecipesMouseLeave}
+      >
+        <div className="recipes-grid-horizontal">
+          {featuredRecipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <div className="recipe-image-container">
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="recipe-image"
+                />
               </div>
-            ))}
-          </div>
+              <div className="recipe-info">
+                <h3 className="recipe-title">{recipe.title}</h3>
+                <p className="recipe-description">{recipe.description}</p>
+              </div>
+            </div>
+          ))}
+          {/* Duplicate recipes to create seamless infinite scroll effect */}
+          {featuredRecipes.map((recipe) => (
+            <div key={`duplicate-${recipe.id}`} className="recipe-card duplicate-card" aria-hidden="true">
+              <div className="recipe-image-container">
+                <img
+                  src={recipe.image}
+                  alt={`${recipe.title} duplicate`}  // Using aria-hidden so screen readers don't read duplicate content
+                  className="recipe-image"
+                />
+              </div>
+              <div className="recipe-info">
+                <h3 className="recipe-title">{recipe.title}</h3>
+                <p className="recipe-description">{recipe.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
 
-      </section>
+    </section>
             {/* Recommendations based on your mood */}
             <section className="mood-recommendations-section">
 
