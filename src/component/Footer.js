@@ -8,7 +8,6 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   const footerLinks = [
-    { path: '/about', label: 'À propos' },
     { path: '/privacy', label: 'Politique de confidentialité' },
     { path: '/terms', label: 'Conditions d\'utilisation' }
   ];
@@ -22,11 +21,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="page-container">
-            <div className="main-content">
-         
- 
-    <footer className="footer">
+     <footer className="footer">
       <div className="footer-container">
         {/* Section gauche - Logo & Description */}
         <div className="footer-section footer-brand">
@@ -109,8 +104,6 @@ const Footer = () => {
         </p>
       </div>
     </footer>
-    </div>
-    </div>
   );
 };
 
