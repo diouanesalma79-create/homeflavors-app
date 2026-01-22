@@ -6,6 +6,7 @@ const navigationItems = [
   { path: '/', label: 'Accueil', end: true },
   { path: '/recipes', label: 'Recettes', end: false },
   { path: '/chefs', label: 'Chefs', end: false },
+  { path: '/about', label: 'About', end: false }
 ];
 
 const Navigation = () => {

@@ -1,0 +1,123 @@
+.about-page {
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+  color: #5c452f;
+}
+
+.about-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-header p {
+  font-size: 1rem;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* Section Logo & Signification */
+.logo-meaning {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.logo-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-item img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Cercle des couleurs */
+.color-values {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.slice {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.slice.nature {
+  background-color: #3e5630;
+}
+
+.slice.warmth {
+  background-color: #d6895b;
+}
+
+.slice.sweetness {
+  background-color: #dbc0a0;
+}
+
+/* Cards Valeurs */
+.value-cards {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #f5f0e8;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  width: 250px;
+}
+
+.card img {
+  width: 40px;
+  margin-bottom: 0.5rem;
+}
+
+/* Cards Info Principales */
+.info-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.info-card {
+  background-color: #fff3e6;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 300px;
+}
+
+.info-card img {
+  width: 40px;
+  margin-bottom: 0.5rem;
+}
+
+.info-card h4 {
+  margin-bottom: 0.5rem;
+}
+
+.info-card ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+}

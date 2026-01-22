@@ -122,15 +122,6 @@
   display: none;
 }
 
-/* Duplicate cards for seamless scroll effect */
-.recipe-card.duplicate-card {
-  /* Optional: Add subtle indication that these are duplicates if needed */
-}
-
-/* Pause animation on hover */
-.popular-recipes-scroll:hover {
-  /* Animation will be paused by JavaScript */
-}
 
 .recipes-scroll::-webkit-scrollbar,
 .recommendations-scroll::-webkit-scrollbar {
