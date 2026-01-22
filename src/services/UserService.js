@@ -30,6 +30,7 @@ class UserService {
       createdAt: new Date().toISOString(),
       profilePhoto: userData.profilePhoto || null,
       recipes: userData.recipes || [],
+      savedRecipes: userData.savedRecipes || [], // Add saved recipes array
       // Ensure chef registration flag is set
       isChefRegistered: userData.role === 'chef' ? true : userData.isChefRegistered || false
     };
@@ -69,6 +70,7 @@ class UserService {
       profilePhoto: user.profilePhoto,
       nationality: user.nationality,
       recipes: user.recipes || [],
+      savedRecipes: user.savedRecipes || [], // Include saved recipes
       createdAt: user.createdAt
     };
     
@@ -146,6 +148,82 @@ class UserService {
       return users[chefIndex];
     }
     return null;
+  }
+
+  // Save recipe for visitor
+  static saveRecipeForUser(userId, recipe) {
+    const users = this.getAllUsers();
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex !== -1) {
+      // Initialize saved recipes array if it doesn't exist
+      if (!users[userIndex].savedRecipes) {
+        users[userIndex].savedRecipes = [];
+      }
+      
+      // Check if recipe is already saved
+      const existingIndex = users[userIndex].savedRecipes.findIndex(r => r.id === recipe.id);
+      if (existingIndex !== -1) {
+        return users[userIndex]; // Recipe already saved
+      }
+      
+      // Add recipe to saved recipes
+      users[userIndex].savedRecipes.push({
+        id: recipe.id,
+        title: recipe.title,
+        image: recipe.image,
+        chefName: recipe.chefName,
+        cuisine: recipe.cuisine,
+        prepTime: recipe.prepTime,
+        savedAt: new Date().toISOString()
+      });
+      
+      this.saveUsers(users);
+      
+      // Update current session if this is the current user
+      const currentUser = this.getCurrentUser();
+      if (currentUser && currentUser.id === userId) {
+        const updatedSession = { 
+          ...currentUser, 
+          savedRecipes: [...users[userIndex].savedRecipes] 
+        };
+        localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(updatedSession));
+      }
+      
+      return users[userIndex];
+    }
+    return null;
+  }
+
+  // Remove saved recipe for user
+  static removeSavedRecipeForUser(userId, recipeId) {
+    const users = this.getAllUsers();
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex !== -1 && users[userIndex].savedRecipes) {
+      users[userIndex].savedRecipes = users[userIndex].savedRecipes.filter(r => r.id !== recipeId);
+      this.saveUsers(users);
+      
+      // Update current session if this is the current user
+      const currentUser = this.getCurrentUser();
+      if (currentUser && currentUser.id === userId) {
+        const updatedSession = { 
+          ...currentUser, 
+          savedRecipes: [...users[userIndex].savedRecipes] 
+        };
+        localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(updatedSession));
+      }
+      
+      return users[userIndex];
+    }
+    return null;
+  }
+
+  // Get user's saved recipes
+  static getUserSavedRecipes(userId) {
+    const users = this.getAllUsers();
+    const user = users.find(u => u.id === userId);
+    return user ? (user.savedRecipes || []) : [];
   }
 }
 

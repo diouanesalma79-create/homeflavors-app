@@ -73,7 +73,7 @@ const HeaderActions = () => {
               className="header-btn header-btn--dashboard"
               onClick={handleDashboardClick}
             >
-              Dashboard
+              Profil
             </button>
             <button
               type="button"

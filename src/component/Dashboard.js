@@ -74,13 +74,24 @@ const Dashboard = () => {
       }
 
       const reader = new FileReader();
-      reader.onload = (event) => {
-        // Update user profile with new avatar
-        const updatedUser = {...user, profilePhoto: event.target.result};
-        setUser(updatedUser);
+      reader.onload = async (event) => {
+        const imageData = event.target.result;
         
-        // In a real app, you would save this to the user profile
-        // UserService.updateUserProfile(user.id, { profilePhoto: event.target.result });
+        // Update user profile with new avatar
+        try {
+          const updatedUser = await UserService.updateUserData(user.id, { profilePhoto: imageData });
+          // Update the current user session
+          const currentUser = UserService.getCurrentUser();
+          if (currentUser) {
+            currentUser.profilePhoto = imageData;
+            localStorage.setItem(UserService.CURRENT_USER_KEY, JSON.stringify(currentUser));
+          }
+          // Update local state
+          setUser({...user, profilePhoto: imageData});
+        } catch (error) {
+          console.error('Error updating user profile photo:', error);
+          alert('Error saving profile photo');
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -96,13 +107,21 @@ const Dashboard = () => {
   };
 
   // Remove avatar image and revert to initial
-  const removeAvatar = () => {
-    // Update user profile to remove avatar
-    const updatedUser = {...user, profilePhoto: null};
-    setUser(updatedUser);
-    
-    // In a real app, you would remove the photo from user profile
-    // UserService.updateUserProfile(user.id, { profilePhoto: null });
+  const removeAvatar = async () => {
+    try {
+      const updatedUser = await UserService.updateUserData(user.id, { profilePhoto: null });
+      // Update the current user session
+      const currentUser = UserService.getCurrentUser();
+      if (currentUser) {
+        currentUser.profilePhoto = null;
+        localStorage.setItem(UserService.CURRENT_USER_KEY, JSON.stringify(currentUser));
+      }
+      // Update local state
+      setUser({...user, profilePhoto: null});
+    } catch (error) {
+      console.error('Error removing profile photo:', error);
+      alert('Error removing profile photo');
+    }
   };
 
   const handleLogout = () => {
@@ -131,7 +150,7 @@ const Dashboard = () => {
   return (
     <div className={user.role === 'chef' ? 'chef-dashboard-wrapper' : 'visitor-dashboard-container'}>
       {user.role === 'chef' ? (
-        <ChefDashboard user={user} onLogout={handleLogout} onProfileSettings={handleProfileSettings} />
+        <ChefDashboard user={user} onLogout={handleLogout} onProfileSettings={handleProfileSettings} navigate={navigate} />
       ) : (
         <>
           {/* Welcome Section for Visitor */}
@@ -144,7 +163,7 @@ const Dashboard = () => {
                     {user.profilePhoto ? (
                       <img src={user.profilePhoto} alt={user.name} style={{width: '100%', height: '100%', borderRadius: '50%'}} />
                     ) : (
-                      <span>{user.name?.charAt(0)?.toUpperCase() || 'U'}</span>
+                      <span>{user.name?.charAt(0) || 'U'}</span>
                     )}
                   </div>
                   <div className="visitor-profile-controls">
@@ -196,7 +215,7 @@ const Dashboard = () => {
 
           {/* Visitor Dashboard Content */}
           <div className="dashboard-content">
-            <VisitorDashboardContent />
+            <VisitorDashboardContent user={user} navigate={navigate} />
           </div>
         </>
       )}
@@ -205,9 +224,14 @@ const Dashboard = () => {
 };
 
 // Chef Dashboard Component with Sidebar and Enhanced Layout
-const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
+const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
   const [activeTab, setActiveTab] = useState('profile');
   const [avatarImage, setAvatarImage] = useState(user.profilePhoto || null);
+
+  // Update avatar image when user data changes
+  useEffect(() => {
+    setAvatarImage(user.profilePhoto || null);
+  }, [user]);
 
   // Mock data for stats - in a real app, this would come from the backend
   const statsData = {
@@ -226,12 +250,12 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
   ];
 
   const handleAddRecipe = () => {
-    // Navigate to add recipe page (to be implemented)
-    console.log('Navigate to add recipe page');
+    // Navigate to add recipe page
+    navigate('/dashboard/chef/recettes/nouvelle');
   };
 
   // Handle avatar image change
-  const handleAvatarImageChange = (e) => {
+  const handleAvatarImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       // Validate file type
@@ -248,11 +272,19 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
       }
 
       const reader = new FileReader();
-      reader.onload = (event) => {
-        setAvatarImage(event.target.result);
+      reader.onload = async (event) => {
+        const imageData = event.target.result;
+        setAvatarImage(imageData);
         
-        // In a real app, you would save this to the user profile
-        // UserService.updateUserProfile(user.id, { profilePhoto: event.target.result });
+        // Update user profile with new avatar
+        try {
+          const updatedUser = await UserService.updateUserData(user.id, { profilePhoto: imageData });
+          // Update the parent component's user state
+          // In a real app, you would update the user context or parent state
+        } catch (error) {
+          console.error('Error updating user profile photo:', error);
+          alert('Error saving profile photo');
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -268,11 +300,17 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
   };
 
   // Remove avatar image and revert to initial
-  const removeAvatarImage = () => {
+  const removeAvatarImage = async () => {
     setAvatarImage(null);
     
-    // In a real app, you would remove the photo from user profile
-    // UserService.updateUserProfile(user.id, { profilePhoto: null });
+    try {
+      const updatedUser = await UserService.updateUserData(user.id, { profilePhoto: null });
+      // Update the parent component's user state
+      // In a real app, you would update the user context or parent state
+    } catch (error) {
+      console.error('Error removing profile photo:', error);
+      alert('Error removing profile photo');
+    }
   };
 
   const renderSidebar = () => (
@@ -284,8 +322,8 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
         </div>
         <div className="sidebar-user-info">
           <div className="sidebar-user-avatar">
-            {user.profilePhoto ? (
-              <img src={user.profilePhoto} alt={user.name} style={{width: '100%', height: '100%', borderRadius: '50%'}} />
+            {avatarImage ? (
+              <img src={avatarImage} alt={user.name} style={{width: '100%', height: '100%', borderRadius: '50%'}} />
             ) : (
               <span>{user.name?.charAt(0) || 'U'}</span>
             )}
@@ -358,7 +396,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
               {avatarImage ? (
                 <img src={avatarImage} alt={user.name} style={{width: '100%', height: '100%', borderRadius: '50%'}} />
               ) : (
-                <span>{user.name?.charAt(0)?.toUpperCase() || 'U'}</span>
+                <span>{user.name?.charAt(0) || 'U'}</span>
               )}
             </div>
             <div className="profile-controls">
@@ -490,8 +528,18 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings }) => {
   );
 };
 
-// Visitor Dashboard Content Component (kept as is)
-const VisitorDashboardContent = () => {
+// Visitor Dashboard Content Component (updated to include saved recipes functionality)
+const VisitorDashboardContent = ({ user, navigate }) => {
+  const [activeTab, setActiveTab] = useState('saved'); // Default to saved recipes
+  const [savedRecipes, setSavedRecipes] = useState(user?.savedRecipes || []);
+
+  // Update saved recipes when user changes
+  useEffect(() => {
+    if (user) {
+      setSavedRecipes(user.savedRecipes || []);
+    }
+  }, [user]);
+
   // Reusable Dashboard Card Component
   const DashboardCard = ({ title, icon, description, actionText, onAction }) => {
     return (
@@ -510,33 +558,112 @@ const VisitorDashboardContent = () => {
     );
   };
 
+  // Saved Recipe Card Component
+  const SavedRecipeCard = ({ recipe, onRemove }) => {
+    return (
+      <div className="saved-recipe-card">
+        <img src={recipe.image} alt={recipe.title} className="saved-recipe-image" />
+        <div className="saved-recipe-info">
+          <h3 className="saved-recipe-title">{recipe.title}</h3>
+          <p className="saved-recipe-meta">
+            By {recipe.chefName} • {recipe.cuisine} • {recipe.prepTime} mins
+          </p>
+        </div>
+        <div className="saved-recipe-actions">
+          <button 
+            className="view-recipe-btn"
+            onClick={() => {
+              // Navigate to the recipe detail page using the recipe ID
+              navigate(`/recipe/${recipe.id}`);
+            }}
+          >
+            Voir la recette
+          </button>
+          <button 
+            className="remove-recipe-btn"
+            onClick={() => onRemove(recipe.id)}
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Handler for removing a saved recipe
+  const handleRemoveSavedRecipe = (recipeId) => {
+    if (user) {
+      UserService.removeSavedRecipeForUser(user.id, recipeId);
+      // Update local state
+      const updatedUser = UserService.getCurrentUser();
+      setSavedRecipes(updatedUser?.savedRecipes || []);
+    }
+  };
+
+  // Render saved recipes view
+  const renderSavedRecipes = () => {
+    if (savedRecipes.length === 0) {
+      return (
+        <div className="no-saved-recipes">
+          <p>Aucune recette enregistrée pour le moment.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="saved-recipes-container">
+        <div className="saved-recipes-grid">
+          {savedRecipes.map(recipe => (
+            <SavedRecipeCard 
+              key={recipe.id} 
+              recipe={recipe} 
+              onRemove={handleRemoveSavedRecipe} 
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="role-content visitor-dashboard">
-      <div className="dashboard-grid">
-        <DashboardCard 
-          title="Saved Recipes" 
-          icon="❤️"
-          description="Access your favorite saved recipes"
-          actionText="View Saved"
-          onAction={() => console.log('Navigate to Saved Recipes')}
-        />
-        
-        <DashboardCard 
-          title="Explore Chefs" 
-          icon="👨‍🍳"
-          description="Discover talented chefs and their specialties"
-          actionText="Browse Chefs"
-          onAction={() => console.log('Navigate to Explore Chefs')}
-        />
-        
-        <DashboardCard 
-          title="Messages" 
-          icon="💬"
-          description="Connect with chefs and other food lovers"
-          actionText="View Messages"
-          onAction={() => console.log('Navigate to Messages')}
-        />
+      {/* Tab navigation for saved recipes view */}
+      <div className="dashboard-tabs">
+        <button 
+          className={`tab-button ${activeTab === 'saved' ? 'active' : ''}`}
+          onClick={() => setActiveTab('saved')}
+        >
+          Recettes Enregistrées
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'other' ? 'active' : ''}`}
+          onClick={() => setActiveTab('other')}
+        >
+          Autres
+        </button>
       </div>
+
+      {activeTab === 'saved' ? (
+        renderSavedRecipes()
+      ) : (
+        <div className="dashboard-grid">
+          <DashboardCard 
+            title="Explore Chefs" 
+            icon="👨‍🍳"
+            description="Discover talented chefs and their specialties"
+            actionText="Browse Chefs"
+            onAction={() => console.log('Navigate to Explore Chefs')}
+          />
+          
+          <DashboardCard 
+            title="Messages" 
+            icon="💬"
+            description="Connect with chefs and other food lovers"
+            actionText="View Messages"
+            onAction={() => console.log('Navigate to Messages')}
+          />
+        </div>
+      )}
     </div>
   );
 };

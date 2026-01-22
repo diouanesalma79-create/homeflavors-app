@@ -15,6 +15,7 @@ import VisitorLogin from './component/VisitorLogin';
 import VisitorLoginForm from './component/VisitorLoginForm';
 import ChefLoginForm from './component/ChefLoginForm';
 import Dashboard from './component/Dashboard';
+import AddRecipeForm from './component/AddRecipeForm';
 import ProtectedRoute from './component/ProtectedRoute';
 import ErrorPage from './component/ErrorPage';
 import Order from './component/Order';
@@ -25,7 +26,6 @@ function App() {
     <div className="App">
       <Router>
         <Header />
-
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/recipes" element={<RecipeExploration />} />
@@ -46,6 +46,16 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Add Recipe Route */}
+          <Route 
+            path="/dashboard/chef/recettes/nouvelle" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <AddRecipeForm />
               </ProtectedRoute>
             } 
           />
