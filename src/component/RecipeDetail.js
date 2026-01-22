@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import recipesData from '../data/recipes.json';
 import { canOrderRecipe } from '../utils/locationUtils';
+import UserService from '../services/UserService';
 import '../style/RecipeDetail.css';
 
 const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
   const [userLocation, setUserLocation] = useState(''); // This would typically come from user settings/location detection
 
   useEffect(() => {
@@ -21,7 +24,37 @@ const RecipeDetail = () => {
     // Simulate getting user location (in a real app, this would be from geolocation API or user settings)
     // For demo purposes, we'll set a default location
     setUserLocation('Spain'); // Change this to simulate different locations
+    
+    // Check if recipe is already saved
+    const currentUser = UserService.getCurrentUser();
+    if (currentUser && currentUser.savedRecipes) {
+      const saved = currentUser.savedRecipes.some(r => r.id == id);
+      setIsSaved(saved);
+    }
   }, [id]);
+
+  // Function to handle saving recipe
+  const handleSaveRecipe = () => {
+    const currentUser = UserService.getCurrentUser();
+    if (!currentUser) {
+      alert('Please log in to save recipes');
+      return;
+    }
+
+    if (recipe) {
+      // Save the recipe
+      UserService.saveRecipeForUser(currentUser.id, recipe);
+      
+      // Update local state
+      setIsSaved(true);
+      setSaveMessage('✅ Recette enregistrée');
+      
+      // Clear the message after 3 seconds
+      setTimeout(() => {
+        setSaveMessage('');
+      }, 3000);
+    }
+  };
 
   const handleOrderClick = (recipe) => {
     if (canOrderRecipe(userLocation, recipe.country)) {
@@ -78,7 +111,14 @@ const RecipeDetail = () => {
                   </div>
                 )}
                 <button className="watch-video-btn">Watch Video Tutorial</button>
-                <button className="save-recipe-btn">Save Recipe</button>
+                <button 
+                  className={`save-recipe-btn ${isSaved ? 'saved' : ''}`}
+                  onClick={handleSaveRecipe}
+                  disabled={isSaved}
+                >
+                  {isSaved ? 'Recipe Saved' : 'Save Recipe'}
+                </button>
+                {saveMessage && <div className="save-message">{saveMessage}</div>}
                 {recipe.chefId && (
                   <button 
                     className={`order-btn ${canOrderRecipe(recipe.country) ? 'active' : 'disabled'}`}
