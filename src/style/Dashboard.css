@@ -1,150 +1,331 @@
-/* Dashboard Container */
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  min-height: calc(100vh - 200px);
-}
-
-/* Loading State */
-.dashboard-loading {
+/* Visitor Dashboard Header - Increased height for proper avatar display */
+.visitor-dashboard-header {
+  background: #f5f5f5; /* Neutral beige background */
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  height: 280px; /* Increased height from previous to ensure full avatar visibility */
   display: flex;
   flex-direction: column;
+}
+
+.visitor-cover-image {
+  height: 140px; /* Reduced to make room for profile content */
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300"><rect fill="%23f0e6d2" width="600" height="300"/><path fill="%23d4c4ad" d="M100,150 Q200,100 300,150 T500,150 C500,180 400,200 300,200 Q200,200 100,180 Z"/><circle fill="%23e8ddd0" cx="250" cy="180" r="15"/><circle fill="%23e8ddd0" cx="350" cy="170" r="12"/><path fill="%23e0d4c1" d="M150,100 L160,80 L170,100 Z M200,95 L210,75 L220,95 Z M250,100 L260,80 L270,100 Z"/><circle fill="%23c9a167" cx="400" cy="120" r="8"/><circle fill="%23c9a167" cx="430" cy="130" r="6"/><circle fill="%23c9a167" cx="460" cy="115" r="7"/></svg>');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+}
+
+/* Visitor Profile Info Section */
+.visitor-profile-info {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+}
+
+.visitor-profile-info-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center; /* Horizontally center content */
+}
+
+.visitor-avatar-container {
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
-  gap: 1rem;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #8a5a44;
+.visitor-avatar {
+  width: 150px; /* Increased size for better visibility */
+  height: 150px; /* Increased size for better visibility */
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Dashboard Header */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.profile-photo {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  border: 4px solid white;
   object-fit: cover;
-  border: 2px solid #8a5a44;
-}
-
-.profile-initials {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #8a5a44;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  background-color: #6B8E23; /* Olive green background as fallback */
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  border: 2px solid #8a5a44;
+  font-size: 3.5rem; /* Increased font size for better initial visibility */
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  overflow: visible;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.user-info {
+.visitor-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific class for fallback avatars */
+.visitor-fallback-avatar {
+  background-color: #6B8E23 !important;
+  color: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Specific class for image avatars */
+.visitor-image-avatar {
+  background-color: transparent !important;
+  object-fit: cover !important;
+}
+
+/* Visitor Profile Controls */
+.visitor-profile-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: flex;
-  flex-direction: column;
+  gap: 8px;
 }
 
-.user-info h1 {
-  color: #8a5a44;
-  margin: 0 0 0.5rem 0;
-  font-size: 2rem;
+.visitor-edit-btn, .visitor-remove-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.visitor-edit-btn:hover, .visitor-remove-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.visitor-profile-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #5d4037;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.visitor-profile-details {
+  flex: 1;
+  color: #333;
+  min-width: 0;
+  overflow: hidden;
+  text-align: left; /* Align text to left for better readability */
+}
+
+.visitor-profile-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  color: #5c4033;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.visitor-verified-badge {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
   font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.user-info .user-role {
-  color: #666;
+.visitor-profile-role {
   font-size: 1.1rem;
-  margin: 0;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.dashboard-actions {
+/* Visitor Dashboard Actions */
+.visitor-dashboard-actions {
   display: flex;
   gap: 1rem;
+  padding: 0 2rem 2rem 2rem; /* Added padding to separate from profile content */
+  justify-content: flex-end;
 }
 
-.profile-btn, .logout-btn {
+.visitor-profile-btn, .visitor-logout-btn {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.profile-btn {
-  background-color: #f5f0e8;
-  color: #8a5a44;
-  border: 1px solid #d4c4ad;
-}
-
-.profile-btn:hover {
-  background-color: #e8dfd2;
-  transform: translateY(-2px);
-}
-
-.logout-btn {
-  background-color: #8a5a44;
+.visitor-profile-btn {
+  background: linear-gradient(135deg, #8a5a44 0%, #c9a167 100%);
   color: white;
 }
 
-.logout-btn:hover {
-  background-color: #7a4a34;
+.visitor-profile-btn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(138, 90, 68, 0.3);
 }
 
-/* Dashboard Content */
-.dashboard-content {
-  margin-top: 2rem;
+.visitor-logout-btn {
+  background: linear-gradient(135deg, #8a5a44 0%, #c9a167 100%);
+  color: white;
 }
 
-.role-content {
-  width: 100%;
+.visitor-logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(138, 90, 68, 0.3);
 }
 
+/* Responsive adjustments for visitor profile header */
+@media (max-width: 768px) {
+  .visitor-dashboard-header {
+    height: 240px; /* Reduced height for mobile but still adequate */
+  }
+  
+  .visitor-cover-image {
+    height: 100px;
+  }
+  
+  .visitor-profile-info {
+    padding: 1.5rem;
+  }
+  
+  .visitor-profile-info-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .visitor-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 2.5rem;
+  }
+  
+  .visitor-profile-details {
+    text-align: center;
+  }
+  
+  .visitor-dashboard-actions {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .visitor-dashboard-header {
+    height: 200px;
+  }
+  
+  .visitor-cover-image {
+    height: 80px;
+  }
+  
+  .visitor-profile-info {
+    padding: 1rem;
+  }
+  
+  .visitor-avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+  
+  .visitor-profile-name {
+    font-size: 1.5rem;
+  }
+  
+  .visitor-profile-role {
+    font-size: 1rem;
+  }
+  
+  .visitor-dashboard-actions {
+    padding: 0 1rem 1rem 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .visitor-profile-btn, .visitor-logout-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Dashboard Grid - Horizontal layout on desktop, vertical on mobile */
 .dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  display: flex; /* Use flexbox for horizontal layout */
+  flex-direction: row; /* Arrange items in a row */
+  gap: 2rem; /* 24px gap between cards */
   margin-top: 1rem;
+  justify-content: center; /* Center the cards in the container */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-/* Dashboard Cards */
+/* On mobile screens, switch to vertical layout */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    flex-direction: column; /* Stack cards vertically on mobile */
+    align-items: center; /* Center cards on mobile */
+    gap: 1.5rem; /* Adjust gap for mobile */
+  }
+}
+
+/* Dashboard Cards - Restored proper styling */
 .dashboard-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fdfdfd; /* Light background */
+  border-radius: 12px; /* Rounded corners */
+  padding: 24px; /* Generous internal padding */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   transition: all 0.3s ease;
   border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+  min-height: 220px; /* Minimum height for consistency */
+  gap: 12px; /* Consistent gap between elements */
+  flex: 1; /* Allow cards to grow equally */
+  max-width: 350px; /* Limit card width to prevent overly wide cards */
 }
 
 .dashboard-card:hover {
@@ -154,30 +335,39 @@
 
 .card-icon {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0; /* Removed since we're using gap */
   text-align: center;
+  color: #8a5a44;
 }
 
 .card-content {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content */
+  justify-content: center; /* Center vertically */
+  flex: 1; /* Take remaining space */
+  width: 100%; /* Full width */
+  gap: 12px; /* Consistent gap */
 }
 
 .card-title {
   color: #8a5a44;
   font-size: 1.3rem;
   font-weight: 600;
-  margin: 0 0 0.75rem 0;
+  margin: 0; /* Reset default margin */
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 
 .card-description {
   color: #666;
   font-size: 0.95rem;
   line-height: 1.5;
-  margin: 0 0 1.5rem 0;
+  margin: 0; /* Reset default margin */
+  flex: 1; /* Take available space */
 }
 
 .card-action-btn {
-  background-color: #8a5a44;
+  background: linear-gradient(135deg, #8a5a44 0%, #c9a167 100%);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -186,16 +376,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  font-size: 1rem;
+  margin-top: auto; /* Push button to bottom */
 }
 
 .card-action-btn:hover {
-  background-color: #7a4a34;
   transform: translateY(-2px);
-}
-
-/* Chef Dashboard Specific Styling */
-.chef-dashboard .dashboard-card {
-  border-left: 4px solid #8a5a44;
+  box-shadow: 0 6px 15px rgba(138, 90, 68, 0.3);
 }
 
 /* Visitor Dashboard Specific Styling */
@@ -203,56 +390,14 @@
   border-left: 4px solid #c9a167;
 }
 
-/* Responsive Design */
+/* Further mobile adjustments */
 @media (max-width: 768px) {
-  .dashboard-container {
-    padding: 1rem;
-  }
-  
-  .dashboard-header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-  
-  .dashboard-actions {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .user-profile {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
-  
-  .profile-photo, .profile-initials {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
-  }
-  
-  .user-info h1 {
-    font-size: 1.5rem;
-  }
-  
-  .user-info .user-role {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .dashboard-container {
-    padding: 0.5rem;
-  }
-  
   .dashboard-card {
-    padding: 1rem;
+    padding: 20px;
+    min-height: 200px;
+    gap: 10px;
+    max-width: 100%; /* Full width on mobile */
+    width: 100%; /* Ensure full width */
   }
   
   .card-icon {
@@ -260,11 +405,34 @@
   }
   
   .card-title {
+    font-size: 1.2rem;
+  }
+  
+  .card-description {
+    font-size: 0.9rem;
+  }
+  
+  .card-action-btn {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-card {
+    padding: 16px;
+    min-height: 180px;
+    gap: 8px;
+  }
+  
+  .card-icon {
+    font-size: 1.8rem;
+  }
+  
+  .card-title {
     font-size: 1.1rem;
   }
   
-  .profile-btn, .logout-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+  .card-description {
+    font-size: 0.85rem;
   }
 }
