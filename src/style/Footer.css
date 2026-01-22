@@ -54,11 +54,15 @@ html, body {
 
 
 /* Section marque */
+/* Section marque alignée à gauche */
 .footer-brand {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  align-items: flex-start; /* <-- force l'alignement à gauche */
+  text-align: left;        /* <-- pour que le texte suive */
 }
+
 
 .footer-logo {
   display: flex;
@@ -70,7 +74,7 @@ html, body {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  background: rgba(201, 161, 103, 0.1);
+  background: #faecd6;
   border-radius: 50%;
   padding: 0.75rem;
   border: 2px solid rgba(201, 161, 103, 0.3);
