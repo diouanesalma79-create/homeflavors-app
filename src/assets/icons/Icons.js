@@ -3,13 +3,11 @@
 import React from 'react';
 
 const iconStyle = {
-  width: '100%',
-  height: '100%',
-  fill: 'none',
+  width: '1em',          // IMPORTANT : taille contrôlée par CSS
+  height: '1em',
   stroke: 'currentColor',
-  strokeWidth: 2,
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round',
+  fill: 'none',
+  strokeWidth: 2
 };
 
 export const HomeIcon = ({ className = '', ...props }) => (
@@ -144,6 +142,8 @@ export const UsersIcon = ({ className = '', ...props }) => (
     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
+// Icons.jsx
+
 
 export const MailIcon = ({ className = '', ...props }) => (
   <svg
@@ -185,3 +185,4 @@ export const MapPinIcon = ({ className = '', ...props }) => (
     <circle cx="12" cy="10" r="3" />
   </svg>
 );
+

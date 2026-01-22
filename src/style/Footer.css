@@ -47,6 +47,11 @@ html, body {
   position: relative;
   z-index: 1;
 }
+.footer-container > * {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
 
 /* Section marque */
 .footer-brand {
@@ -151,7 +156,8 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Section contact */
+/* CONTACT FOOTER */
+
 .footer-contact {
   display: flex;
   flex-direction: column;
@@ -164,48 +170,46 @@ html, body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
+/* ITEM */
 .footer-contact-item {
   display: flex;
-  align-items: center; /* Centré verticalement */
-  gap: 0.5rem;
-  width: 50px;
-  height: 50px;
-  padding: 0.65rem 1rem;
+  align-items: center;
+  gap: 0.6rem;               /* espace icône ↔ texte */
+
+  padding: 0.55rem 0.9rem;
+  min-width: 230px;
+
   background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
-  transition: all 0.3s ease;
 }
 
-.footer-contact-item:hover {
-  background: rgba(201, 161, 103, 0.15);
-  transform: translateY(-2px);
-}
 
 .footer-contact-icon {
-  width: 10px;
-  height: 10px;
+  font-size: 20px;
   color: #c9a167;
   flex-shrink: 0;
 }
 
+
+/* TEXTE */
 .footer-contact-link,
 .footer-contact-text {
-  color: #e8dfd0;
-  text-decoration: none;
   font-size: 1rem;
-  transition: color 0.3s ease;
-  line-height: normal;
-  letter-spacing: normal;
+  color: #e8dfd0;
   font-family: 'Segoe UI', sans-serif;
+  text-decoration: none;
+   white-space: nowrap;
 }
 
-.footer-contact-link:hover {
-  color: #f6e6bf;
-  text-decoration: underline;
+.footer-contact-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+
 
 /* Section réseaux sociaux */
 .footer-social {
@@ -239,7 +243,7 @@ html, body {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   position: relative;
   overflow: hidden;
@@ -272,9 +276,9 @@ html, body {
 /* Hover réseaux sociaux */
 .footer-social-link--facebook:hover { background:#1877f2; transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(24,119,242,0.4);}
 .footer-social-link--instagram:hover { background: radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%); transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(214,36,159,0.4);}
-.footer-social-link--tiktok:hover { background: linear-gradient(135deg,#000 0%,#25f4ee 50%,#fe2c55 100%); transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(0,0,0,0.4);}
+.footer-social-link--tiktok:hover { background:#090a0a; transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(0,0,0,0.4);}
 .footer-social-link--youtube:hover { background:#ff0000; transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(255,0,0,0.4);}
-.footer-social-link--twitter:hover { background:#1da1f2; transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(29,161,242,0.4);}
+.footer-social-link--twitter:hover { background:#0d0d0d; transform:translateY(-5px) scale(1.1); box-shadow:0 8px 20px rgba(255,255,255,0.4);}
 
 /* Footer bottom */
 .footer-bottom {
