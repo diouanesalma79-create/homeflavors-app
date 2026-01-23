@@ -20,6 +20,8 @@ import ProtectedRoute from './component/ProtectedRoute';
 import ErrorPage from './component/ErrorPage';
 import Order from './component/Order';
 import About from './component/About';
+import AdminDashboard from './component/AdminDashboard';
+import AdminLogin from './component/AdminLogin';
 import './App.css';
 
 function App() {
@@ -41,6 +43,7 @@ function App() {
           <Route path="/login/visitor" element={<VisitorLogin />} />
           <Route path="/login/chef" element={<ChefLoginForm />} />
           <Route path="/chatbox" element={<ChatboxA />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           
           {/* Dashboard Routes */}
           <Route 
@@ -58,6 +61,16 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['chef']}>
                 <AddRecipeForm />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Admin Dashboard Route */}
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
               </ProtectedRoute>
             } 
           />

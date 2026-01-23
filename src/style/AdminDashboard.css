@@ -1,0 +1,286 @@
+.admin-dashboard {
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+  color: #5c452f;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #8d6e63;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #654321;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.dashboard-loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8d6e63;
+  padding: 2rem;
+}
+
+.dashboard-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background-color: #f5f0e8;
+  border: 2px solid #e9d8c5;
+  color: #654321;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #e9d8c5;
+  border-color: #8d6e63;
+}
+
+.tab-button.active {
+  background-color: #8d6e63;
+  color: white;
+  border-color: #8d6e63;
+}
+
+.users-section h2 {
+  font-size: 1.5rem;
+  color: #8d6e63;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .users-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .users-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.user-card {
+  background-color: #fefbf6;
+  border: 1px solid #e9d8c5;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.user-card-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e9d8c5;
+}
+
+.user-avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #8d6e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border: 2px solid #e9d8c5;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  color: #5c452f;
+  margin-bottom: 0.25rem;
+}
+
+.user-email {
+  color: #654321;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.user-role {
+  color: #8d6e63;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.registration-date {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.approval-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.approve-btn, .reject-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 120px;
+}
+
+.approve-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #da190b;
+  transform: translateY(-2px);
+}
+
+.no-users {
+  text-align: center;
+  color: #654321;
+  font-style: italic;
+  padding: 2rem;
+  grid-column: 1 / -1;
+}
+
+.access-denied {
+  text-align: center;
+  padding: 3rem;
+  background-color: #f8f3ee;
+  border-radius: 12px;
+  border: 1px solid #e9d8c5;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.access-denied h2 {
+  color: #8d6e63;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.access-denied p {
+  color: #654321;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.back-button {
+  background-color: #8d6e63;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #6d4c41;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .admin-dashboard {
+    padding: 1rem;
+  }
+  
+  .dashboard-tabs {
+    gap: 0.5rem;
+  }
+  
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .user-card {
+    padding: 1rem;
+  }
+  
+  .user-card-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .approval-buttons {
+    flex-direction: column;
+  }
+  
+  .approve-btn, .reject-btn {
+    max-width: none;
+  }
+  
+  .access-denied {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+}

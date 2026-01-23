@@ -1,0 +1,148 @@
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fefbf6 0%, #f9f3e9 100%);
+  padding: 1rem;
+}
+
+.admin-login-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #e9d8c5;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h1 {
+  color: #8d6e63;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.login-header p {
+  color: #654321;
+  font-size: 1rem;
+}
+
+.login-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #f5c6cb;
+}
+
+.login-form {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #5c452f;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e9d8c5;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: #fefbf6;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #8d6e63;
+  background-color: white;
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #8d6e63;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover:not(:disabled) {
+  background-color: #6d4c41;
+}
+
+.login-button:disabled {
+  background-color: #bcaaa4;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  text-align: center;
+  border-top: 1px solid #e9d8c5;
+  padding-top: 1.5rem;
+}
+
+.back-link {
+  color: #8d6e63;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #6d4c41;
+}
+
+.demo-credentials {
+  background-color: #f5f0e8;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #654321;
+}
+
+.demo-credentials p {
+  margin: 0.25rem 0;
+}
+
+.demo-credentials strong {
+  color: #5c452f;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .admin-login-container {
+    padding: 0.5rem;
+  }
+  
+  .admin-login-card {
+    padding: 1.5rem;
+  }
+  
+  .login-header h1 {
+    font-size: 1.5rem;
+  }
+}
