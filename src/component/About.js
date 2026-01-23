@@ -1,116 +1,105 @@
-// import React from "react";
-// import "./About.css"; // On crée le CSS séparé
-// import homeIcon from "../assets/icons/home.svg";
-// import smokeIcon from "../assets/icons/smoke.svg";
-// import cutleryIcon from "../assets/icons/cutlery.svg";
-// import leafHandIcon from "../assets/icons/leaf-hand.svg";
-// import doorIcon from "../assets/icons/door.svg";
-// import handsIcon from "../assets/icons/hands.svg";
-// import cupcakeIcon from "../assets/icons/cupcake.svg";
-// import chefIcon from "../assets/icons/chef.svg";
-// import fingerIcon from "../assets/icons/finger-point.svg";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../style/About.css";
 
-// const About = () => {
-//   return (
-//     <div className="about-page">
-//       <header className="about-header">
-//         <h1>À propos : Notre Histoire et Nos Valeurs</h1>
-//         <p>
-//           HomeFlavors est une plateforme dédiée aux recettes familiales et faciles à réaliser,
-//           qui encouragent la convivialité et le partage de repas faits maison.
-//         </p>
-//       </header>
+const About = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+    
+    const cards = document.querySelectorAll('.about-card');
+    cards.forEach(card => {
+      observer.observe(card);
+    });
+    
+    // Staggered load for initial page load
+    setTimeout(() => {
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          if (!card.classList.contains('animate')) {
+            card.classList.add('animate');
+          }
+        }, index * 100); // 100ms delay between each card
+      });
+    }, 100);
+    
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, []);
+  
+  const handleExploreRecipes = () => {
+    navigate('/recipes');
+  };
+  
+  const handleMeetChefs = () => {
+    navigate('/chefs');
+  };
+  
+  return (
+    <div className="about-container">
+      <div className="about-grid">
+        {/* Card 1 - Welcome */}
+        <div className="about-card welcome-card">
+          <h2 className="about-card-title">Welcome to HomeFlavors</h2>
+          <p className="about-intro">HomeFlavors is your culinary space to discover, share, and savor recipes from around the world. Whether you're a passionate home cook or simply curious about new flavors, our platform connects you with chefs and food lovers everywhere.</p>
+        </div>
+        
+        {/* Card 2 - Our Mission */}
+        <div className="about-card mission-card">
+          <h2 className="about-card-title">Our Mission</h2>
+          <p>Our mission is to bring people together through food. We believe cooking is more than preparing meals—it's about culture, creativity, and connection.</p>
+        </div>
+        
+        {/* Card 3 - Our Values */}
+        <div className="about-card values-card">
+          <h2 className="about-card-title">Our Values</h2>
+          <ul className="about-values">
+            <li>Community & Sharing</li>
+            <li>Diversity of Flavors</li>
+            <li>Accessibility & Simplicity</li>
+            <li>Inspiration & Creativity</li>
+          </ul>
+        </div>
+        
+        {/* Card 4 - The Problem */}
+        <div className="about-card problem-card">
+          <h2 className="about-card-title">The Problem We Solve</h2>
+          <p>Many people want to explore new recipes or share their culinary skills but lack a welcoming and organized space.</p>
+        </div>
+        
+        {/* Card 5 - Our Solution */}
+        <div className="about-card solution-card">
+          <h2 className="about-card-title">Our Solution</h2>
+          <p>HomeFlavors offers a platform where you can save your favorite recipes, follow chefs, and connect with a vibrant food community.</p>
+        </div>
+        
+        {/* Card 6 - Join Us */}
+        <div className="about-card join-card">
+          <h2 className="about-card-title">Join Us</h2>
+          <p>Food is better when shared. Join HomeFlavors today and let your flavors inspire the world.</p>
+          <div className="about-actions">
+            <button className="explore-btn" onClick={handleExploreRecipes} role="button" tabIndex="0" aria-label="Explore Recipes">Explore Recipes <span aria-hidden="true">→</span></button>
+            <button className="meet-chefs-btn" onClick={handleMeetChefs} role="button" tabIndex="0" aria-label="Meet Our Chefs">Meet Our Chefs <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-//       {/* Section Logo & Significations */}
-//       <section className="logo-meaning">
-//         <div className="logo-item">
-//           <img src={homeIcon} alt="Maison" />
-//           <div>
-//             <h3>Maison</h3>
-//             <p>Symbole de l'accueil et du foyer.</p>
-//           </div>
-//         </div>
-//         <div className="logo-item">
-//           <img src={smokeIcon} alt="Fumée" />
-//           <div>
-//             <h3>Fumée</h3>
-//             <p>Évocation des arômes et saveurs maison.</p>
-//           </div>
-//         </div>
-//         <div className="logo-item">
-//           <img src={cutleryIcon} alt="Couverts" />
-//           <div>
-//             <h3>Couverts</h3>
-//             <p>Représentation du partage et de la convivialité.</p>
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Cercle des couleurs */}
-//       <section className="color-values">
-//         <h3>Nos Couleurs & Valeurs</h3>
-//         <div className="circle">
-//           <div className="slice nature">Nature</div>
-//           <div className="slice warmth">Chaleur</div>
-//           <div className="slice sweetness">Douceur</div>
-//         </div>
-//       </section>
-
-//       {/* Cards Valeurs */}
-//       <section className="value-cards">
-//         <div className="card">
-//           <img src={leafHandIcon} alt="Authenticité" />
-//           <h4>Authenticité</h4>
-//           <p>Des recettes vraies, transmises avec passion et intégrité.</p>
-//         </div>
-//         <div className="card">
-//           <img src={doorIcon} alt="Accessibilité" />
-//           <h4>Accessibilité</h4>
-//           <p>Une cuisine simple et ouverte à tous, sans barrières.</p>
-//         </div>
-//         <div className="card">
-//           <img src={handsIcon} alt="Lien Humain" />
-//           <h4>Lien Humain</h4>
-//           <p>Fédérer une communauté autour du plaisir de manger ensemble.</p>
-//         </div>
-//       </section>
-
-//       {/* Cards Info Principales */}
-//       <section className="info-cards">
-//         <div className="info-card">
-//           <img src={cupcakeIcon} alt="Recettes" />
-//           <h4>Que trouverez-vous sur HomeFlavors ?</h4>
-//           <ul>
-//             <li>Une collection de recettes simples et familiales.</li>
-//             <li>Des conseils culinaires utiles et des guides étape par étape.</li>
-//             <li>Des histoires et expériences qui inspirent des repas joyeux.</li>
-//             <li>Des idées pour ajouter de la créativité et du plaisir à la cuisine quotidienne.</li>
-//           </ul>
-//         </div>
-//         <div className="info-card">
-//           <img src={chefIcon} alt="Qui est Anna ?" />
-//           <h4>Qui est Anna ?</h4>
-//           <ul>
-//             <li>Née en France et vit actuellement à Paris.</li>
-//             <li>Issue d'une famille de restaurateurs passionnés.</li>
-//             <li>12 ans d’expérience culinaire en tant que chef.</li>
-//             <li>Passionnée par la cuisine française traditionnelle et moderne.</li>
-//             <li>Mère d'une fille qui partage sa passion pour la cuisine.</li>
-//           </ul>
-//         </div>
-//         <div className="info-card">
-//           <img src={fingerIcon} alt="Objectifs" />
-//           <h4>Quels sont nos objectifs ?</h4>
-//           <ul>
-//             <li>Promouvoir des recettes familiales faciles à réaliser.</li>
-//             <li>Encourager une approche plus saine de la cuisine maison.</li>
-//             <li>Créer une communauté autour du plaisir de cuisiner ensemble.</li>
-//             <li>Partager les traditions culinaires et astuces à travers les générations.</li>
-//           </ul>
-//         </div>
-//       </section>
-//     </div>
-//   );
-// };
-
-// export default About;
+export default About;

@@ -1,123 +1,231 @@
-.about-page {
+.about-container {
   padding: 2rem;
   font-family: "Poppins", sans-serif;
   color: #5c452f;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.about-header h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
 
-.about-header p {
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .about-card-title {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .explore-btn, .meet-chefs-btn {
+    transition: none;
+  }
+}
+
+.about-card {
+  background-color: #fefbf6;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.about-card.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-card {
+  background-color: #fdf6ee;
+  border: 1px solid #e9d8c5;
+}
+
+.mission-card {
+  background-color: #f9f3e9;
+  border: 1px solid #e0d0bc;
+}
+
+.values-card {
+  background-color: #f7f3ec;
+  border: 1px solid #e2d7c8;
+}
+
+.problem-card {
+  background-color: #f8f3ee;
+  border: 1px solid #e9d8c5;
+}
+
+.solution-card {
+  background-color: #f5f1ea;
+  border: 1px solid #e4d7c5;
+}
+
+.join-card {
+  background-color: #f3f0ec;
+  border: 1px solid #e2d7c8;
+}
+
+.about-card-title {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.about-card.animate .about-card-title {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-card-title {
+  font-size: 1.4rem;
+  color: #8d6e63;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9d8c5;
+  font-weight: 600;
+}
+
+.about-intro {
   font-size: 1rem;
-  max-width: 700px;
   line-height: 1.6;
+  color: #654321;
+  margin-bottom: 0;
 }
 
-/* Section Logo & Signification */
-.logo-meaning {
+.about-values {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+  list-style-type: disc;
+}
+
+.about-values li {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #654321;
+}
+
+.about-actions {
   display: flex;
-  justify-content: space-around;
-  margin: 2rem 0;
   flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.logo-item {
-  display: flex;
-  align-items: center;
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.logo-item img {
-  width: 50px;
-  height: 50px;
-}
-
-/* Cercle des couleurs */
-.color-values {
-  text-align: center;
-  margin: 2rem 0;
-}
-
-.circle {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.slice {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.explore-btn, .meet-chefs-btn {
+  background-color: #8d6e63;
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.slice.nature {
-  background-color: #3e5630;
+.explore-btn:hover, .meet-chefs-btn:hover {
+  background-color: #6d4c41;
+  transform: translateY(-2px);
 }
 
-.slice.warmth {
-  background-color: #d6895b;
+.explore-btn:active, .meet-chefs-btn:active {
+  transform: translateY(0);
 }
 
-.slice.sweetness {
-  background-color: #dbc0a0;
+.explore-btn::after, .meet-chefs-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+  z-index: -1;
 }
 
-/* Cards Valeurs */
-.value-cards {
-  display: flex;
-  justify-content: space-around;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+.explore-btn:active::after, .meet-chefs-btn:active::after {
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
 }
 
-.card {
-  background-color: #f5f0e8;
-  padding: 1rem;
-  border-radius: 10px;
-  text-align: center;
-  width: 250px;
+.explore-btn span, .meet-chefs-btn span {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
 }
 
-.card img {
-  width: 40px;
-  margin-bottom: 0.5rem;
+.explore-btn:hover span, .meet-chefs-btn:hover span {
+  transform: translateX(3px);
 }
 
-/* Cards Info Principales */
-.info-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1.5rem;
-  margin: 2rem 0;
+.about-button {
+  background-color: #8d6e63;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.info-card {
-  background-color: #fff3e6;
-  border-radius: 10px;
-  padding: 1rem;
-  width: 300px;
+.about-button:hover {
+  background-color: #6d4c41;
+  transform: translateY(-2px);
 }
 
-.info-card img {
-  width: 40px;
-  margin-bottom: 0.5rem;
+.about-button:active {
+  transform: translateY(0);
 }
 
-.info-card h4 {
-  margin-bottom: 0.5rem;
+.about-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+  z-index: -1;
 }
 
-.info-card ul {
-  list-style: disc;
-  padding-left: 1.2rem;
+.about-button:active::after {
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
 }

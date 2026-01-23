@@ -19,7 +19,7 @@ import AddRecipeForm from './component/AddRecipeForm';
 import ProtectedRoute from './component/ProtectedRoute';
 import ErrorPage from './component/ErrorPage';
 import Order from './component/Order';
-// import About from './component/About';
+import About from './component/About';
 import './App.css';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
           <Route path="/recipes" element={<RecipeExploration />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/chefs" element={<Chefs />} />
-          {/* <Route path="/about" element={<About />} /> */}
+          <Route path="/about" element={<About />} />
           <Route path="/chef/:chefId" element={<ChefRecipes />} />
           <Route path="/order/:recipeId" element={<Order />} />
           <Route path="/become-chef" element={<BecomeAChef />} />
