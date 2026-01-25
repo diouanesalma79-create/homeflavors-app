@@ -10,34 +10,35 @@
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.25rem;
-  font-size: 4rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
   font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+  min-height: 40px;
 }
 
 /* Bouton ChatboxAI - Brown */
 .header-btn--chatbox {
-  background: #a46151 !important;
+  background: #5c4033 !important;
   color: #ffffff !important;
 }
 
 .header-btn--chatbox:hover {
-  background: #a46151 !important;
+  background: #4a3228 !important;
   color: #ffffff !important;
 }
 
 /* Bouton Login - Brown */
 .header-btn--login {
-  background: #a46151 !important;
+  background: #5c4033 !important;
   color: #ffffff !important;
 }
 
 .header-btn--login:hover {
-  background: #a46151 !important;
+  background: #4a3228 !important;
   color: #ffffff !important;
 }
 /* ===== Logo + Title positioning (TOP LEFT) ===== */
@@ -78,4 +79,25 @@
   background: var(--hf-green-dark);
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header-actions {
+    display: none; /* Hidden on mobile since it's in the mobile menu */
+  }
+  
+  .header-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    min-height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    min-height: 34px;
+  }
 }

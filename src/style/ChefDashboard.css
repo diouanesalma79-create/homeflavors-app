@@ -155,15 +155,16 @@
   width: 100%;
 }
 
-/* Profile Header Section - FURTHER ENHANCED HEIGHT */
+/* Profile Header Section - EXPANDED HEIGHT FOR CARDS */
 .chef-profile-header {
   background: #f5f5f5; /* Neutral beige background */
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible; /* Changed from hidden to visible to prevent clipping */
   margin-bottom: 2rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   position: relative;
-  height: 300px; /* Further increased height from 260px to 300px */
+  height: 350px; /* Increased height from 300px to 350px to accommodate stats cards */
+  min-height: 350px; /* Ensure minimum height */
 }
 
 .cover-image {
@@ -178,7 +179,7 @@
 .profile-info {
   padding: 3rem; /* Increased padding from 2.5rem to 3rem */
   position: relative;
-  top: -60px;
+  top: -80px; /* Adjusted from -60px to -80px to better position with expanded height */
 }
 
 .profile-info-content {
@@ -322,12 +323,14 @@
   transform: scale(1.1);
 }
 
-/* Stats Cards Grid */
+/* Stats Cards Grid - POSITIONED BELOW PROFILE HEADER */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin: -60px 0 2rem 0; /* Negative margin to pull cards up under profile header */
+  position: relative;
+  z-index: 2; /* Ensure cards appear above profile header */
 }
 
 .stat-card {
@@ -518,6 +521,20 @@
     border-bottom: 1px solid #e0d4c1;
   }
   
+  .chef-profile-header {
+    height: 320px; /* Adjust height for mobile */
+    min-height: 320px;
+  }
+  
+  .profile-info {
+    top: -70px; /* Adjust positioning for mobile */
+    padding: 2rem;
+  }
+  
+  .stats-grid {
+    margin: -50px 0 2rem 0; /* Adjust negative margin for mobile */
+  }
+  
   .sidebar-nav {
     display: flex;
     gap: 0.5rem;
@@ -566,9 +583,19 @@
 }
 
 @media (max-width: 480px) {
+  .chef-profile-header {
+    height: 280px; /* Further reduced height for small screens */
+    min-height: 280px;
+  }
+  
   .profile-info {
     padding: 1.5rem 1rem;
-    top: -50px;
+    top: -60px; /* Adjusted positioning */
+  }
+  
+  .stats-grid {
+    margin: -40px 0 1.5rem 0; /* Adjusted negative margin for small screens */
+    gap: 1rem; /* Reduced gap for small screens */
   }
   
   .profile-avatar {

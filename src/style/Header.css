@@ -71,6 +71,26 @@
   flex-shrink: 0;
 }
 
+.mobile-menu-toggle {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #4a3728;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: rgba(92, 69, 47, 0.1);
+}
+
+.hamburger {
+  display: block;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   :root {
@@ -81,36 +101,45 @@
 @media (max-width: 768px) {
   :root {
     --header-padding-x: 1rem;
-    --header-height: auto;
+    --header-height: 80px; /* Increased height for better spacing */
   }
 
   .header-container {
-    flex-direction: column;
-    padding: 0.75rem 1rem;
-    gap: 0.75rem;
-    height: auto;
-  }
-
-  .header-left {
-    width: 100%;
-    justify-content: center;
+    padding: 16px 12px; /* Increased padding for better spacing */
+    height: var(--header-height);
   }
 
   .header-center {
-    width: 100%;
-    order: 3;
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
   }
 
   .header-right {
-    width: 100%;
-    justify-content: center;
-    order: 2;
+    justify-content: flex-end; /* Align buttons to the right */
+    flex: 0 0 auto; /* Don't grow */
   }
 }
 
 @media (max-width: 480px) {
   :root {
     --header-padding-x: 0.75rem;
+    --header-height: 70px; /* Slightly taller for small screens */
+  }
+
+  .header-container {
+    padding: 14px 10px; /* Adjusted padding */
+    height: var(--header-height);
+  }
+
+  .mobile-menu-toggle {
+    margin-right: 0.5rem;
+  }
+
+  .header-actions {
+    gap: 0.4rem; /* Slightly smaller gap on very small screens */
   }
 }
 /* Base boutons Header */

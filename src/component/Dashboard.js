@@ -130,8 +130,8 @@ const Dashboard = () => {
   };
 
   const handleProfileSettings = () => {
-    // Navigate to profile settings page (to be implemented)
-    console.log('Navigate to profile settings');
+    // Navigate to profile settings page
+    navigate('/profile-settings');
   };
 
   if (loading) {
@@ -233,13 +233,31 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
     setAvatarImage(user.profilePhoto || null);
   }, [user]);
 
-  // Mock data for stats - in a real app, this would come from the backend
-  const statsData = {
-    totalRecipes: user.recipes ? user.recipes.length : 12,
-    weeklyOrders: 8,
-    unreadMessages: 3,
-    averageRating: 4.8
+  // Calculate real data for stats from user profile and conversations
+  const calculateStatsData = () => {
+    // Get fresh user data to ensure we have latest conversations
+    const currentUser = UserService.getCurrentUser();
+    
+    // Calculate unread messages from conversations
+    let unreadMessages = 0;
+    if (currentUser && currentUser.conversations) {
+      unreadMessages = currentUser.conversations.filter(conv => conv.unread).length;
+    }
+    
+    return {
+      totalRecipes: currentUser?.recipes ? currentUser.recipes.length : 0,
+      weeklyOrders: currentUser?.weeklyOrders || 0,
+      unreadMessages: unreadMessages,
+      averageRating: currentUser?.rating || 0
+    };
   };
+  
+  const [statsData, setStatsData] = useState(calculateStatsData());
+  
+  // Update stats when user data changes
+  useEffect(() => {
+    setStatsData(calculateStatsData());
+  }, [user]);
   
   // Mock activity feed data
   const activityFeed = [
@@ -338,7 +356,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
         <a 
           href="#" 
           className={`sidebar-nav-item ${activeTab === 'profile' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); setActiveTab('profile'); }}
+          onClick={(e) => { e.preventDefault(); navigate('/chef/profile'); }}
         >
           <UserIcon className="icon" style={{width: '20px', height: '20px'}} />
           <span>Profil</span>
@@ -346,7 +364,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
         <a 
           href="#" 
           className={`sidebar-nav-item ${activeTab === 'recipes' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); setActiveTab('recipes'); }}
+          onClick={(e) => { e.preventDefault(); navigate('/chef/recipes'); }}
         >
           <CookingPotIcon className="icon" style={{width: '20px', height: '20px'}} />
           <span>Recettes</span>
@@ -354,7 +372,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
         <a 
           href="#" 
           className={`sidebar-nav-item ${activeTab === 'orders' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); setActiveTab('orders'); }}
+          onClick={(e) => { e.preventDefault(); navigate('/chef/orders'); }}
         >
           <span className="icon">📋</span>
           <span>Commandes</span>
@@ -362,7 +380,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
         <a 
           href="#" 
           className={`sidebar-nav-item ${activeTab === 'messages' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); setActiveTab('messages'); }}
+          onClick={(e) => { e.preventDefault(); navigate('/chef/messages'); }}
         >
           <MessageCircleIcon className="icon" style={{width: '20px', height: '20px'}} />
           <span>Messages</span>
@@ -370,7 +388,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
         <a 
           href="#" 
           className={`sidebar-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
-          onClick={(e) => { e.preventDefault(); setActiveTab('settings'); }}
+          onClick={(e) => { e.preventDefault(); navigate('/chef/settings'); }}
         >
           <span className="icon" style={{fontSize: '1.2rem'}}>⚙️</span>
           <span>Paramètres</span>
@@ -479,27 +497,6 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
     </div>
   );
 
-  const renderActivityFeed = () => (
-    <div className="activity-section">
-      <h2 className="section-title">Activité récente</h2>
-      <ul className="activity-list">
-        {activityFeed.map(activity => (
-          <li key={activity.id} className="activity-item">
-            <div className={`activity-icon ${activity.type}`}>
-              {activity.type === 'recipe' && <CookingPotIcon style={{width: '20px', height: '20px'}} />}
-              {activity.type === 'order' && <span>📋</span>}
-              {activity.type === 'message' && <MessageCircleIcon style={{width: '20px', height: '20px'}} />}
-            </div>
-            <div className="activity-content">
-              <h4 className="activity-title">{activity.title}</h4>
-              <p className="activity-time">{activity.time}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
   const renderCTASection = () => (
     <div className="cta-section">
       <h3 className="cta-title">Envie de partager une nouvelle recette ?</h3>
@@ -518,8 +515,6 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           {renderProfileHeader()}
           
           {renderStatsCards()}
-          
-          {renderActivityFeed()}
           
           {renderCTASection()}
         </div>
@@ -600,6 +595,50 @@ const VisitorDashboardContent = ({ user, navigate }) => {
     }
   };
 
+  // State for notifications
+  const [notifications, setNotifications] = useState([]);
+  
+  // Poll for new messages
+  useEffect(() => {
+    let pollInterval;
+    
+    if (user && user.role === 'visitor') {
+      const pollForNewMessages = () => {
+        const currentUser = UserService.getCurrentUser();
+        if (currentUser && currentUser.conversations) {
+          // Check for unread messages
+          const unreadConversations = currentUser.conversations.filter(conv => conv.unread);
+          
+          if (unreadConversations.length > 0) {
+            // Create notifications for unread messages
+            const newNotifications = unreadConversations
+              .filter(conv => conv && conv.participant) // Filter out invalid conversations and those without participant data
+              .map(conv => ({
+                id: Date.now() + Math.random(),
+                type: 'new_message',
+                message: `📩 Nouveau message reçu de ${(conv.participant && conv.participant.name) || 'Deleted User'}`,
+                timestamp: new Date().toLocaleTimeString(),
+                conversationId: conv.id
+              }));
+            
+            if (newNotifications.length > 0) {
+              setNotifications(prev => [...newNotifications, ...prev.slice(0, 4)]); // Keep only last 5 notifications
+            }
+          }
+        }
+      };
+      
+      // Poll every 5 seconds
+      pollInterval = setInterval(pollForNewMessages, 5000);
+    }
+    
+    return () => {
+      if (pollInterval) {
+        clearInterval(pollInterval);
+      }
+    };
+  }, [user]);
+
   // Render saved recipes view
   const renderSavedRecipes = () => {
     if (savedRecipes.length === 0) {
@@ -627,6 +666,24 @@ const VisitorDashboardContent = ({ user, navigate }) => {
 
   return (
     <div className="role-content visitor-dashboard">
+      {/* Notifications */}
+      {notifications.length > 0 && (
+        <div className="notifications-panel">
+          {notifications.map(notification => (
+            <div key={notification.id} className="notification-item">
+              <span className="notification-message">{notification.message}</span>
+              <span className="notification-time">{notification.timestamp}</span>
+              <button 
+                className="notification-action"
+                onClick={() => navigate('/messages')}
+              >
+                Voir
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      
       {/* Tab navigation for saved recipes view */}
       <div className="dashboard-tabs">
         <button 
@@ -647,21 +704,20 @@ const VisitorDashboardContent = ({ user, navigate }) => {
         renderSavedRecipes()
       ) : (
         <div className="dashboard-grid">
-          <DashboardCard 
-            title="Explore Chefs" 
-            icon="👨‍🍳"
-            description="Discover talented chefs and their specialties"
-            actionText="Browse Chefs"
-            onAction={() => console.log('Navigate to Explore Chefs')}
-          />
-          
-          <DashboardCard 
-            title="Messages" 
-            icon="💬"
-            description="Connect with chefs and other food lovers"
-            actionText="View Messages"
-            onAction={() => console.log('Navigate to Messages')}
-          />
+          {user.conversations && user.conversations.length > 0 && (
+            <DashboardCard 
+              title="Messages" 
+              icon="💬"
+              description="Connect with chefs and other food lovers"
+              actionText="View Messages"
+              onAction={() => navigate('/messages')}
+            />
+          )}
+          {(!user.conversations || user.conversations.length === 0) && (
+            <div className="no-messages-placeholder">
+              <p>No messages yet. Start a conversation!</p>
+            </div>
+          )}
         </div>
       )}
     </div>

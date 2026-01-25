@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserService from '../services/UserService';
 import '../style/AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -14,16 +15,27 @@ const AdminDashboard = () => {
   // Check if user is admin
   useEffect(() => {
     const checkAdminAccess = () => {
-      const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      const currentUser = UserService.getCurrentUser();
       
-      // Check if user is admin (you can modify this logic based on your auth system)
-      const isAdmin = (user.role === 'admin' || user.email === 'admin@homeflavors.com') && isAuthenticated;
+      // Check if user is authenticated
+      if (!currentUser) {
+        navigate('/login');
+        return;
+      }
       
-      if (!isAdmin) {
-        // Show access denied message instead of redirecting
-        setError('Access Denied: Admin privileges required');
-        setLoading(false);
+      // Check if user is admin
+      if (currentUser.role !== 'admin') {
+        // Redirect based on user role
+        switch (currentUser.role) {
+          case 'chef':
+            navigate('/dashboard/chef');
+            break;
+          case 'visitor':
+            navigate('/dashboard/visitor');
+            break;
+          default:
+            navigate('/login');
+        }
         return;
       }
       
@@ -36,41 +48,40 @@ const AdminDashboard = () => {
   const fetchPendingUsers = async () => {
     try {
       setLoading(true);
-      // Mock data - replace with actual API call
-      const mockPendingUsers = [
-        {
-          id: 1,
-          fullName: 'Marie Dubois',
-          email: 'marie.dubois@email.com',
-          role: 'chef',
-          registrationDate: '2024-01-15',
-          profileImage: null,
-          status: 'pending'
-        },
-        {
-          id: 2,
-          fullName: 'Jean Martin',
-          email: 'jean.martin@email.com',
-          role: 'visitor',
-          registrationDate: '2024-01-16',
-          profileImage: null,
-          status: 'pending'
-        },
-        {
-          id: 3,
-          fullName: 'Sophie Laurent',
-          email: 'sophie.laurent@email.com',
-          role: 'chef',
-          registrationDate: '2024-01-14',
-          profileImage: null,
-          status: 'approved'
+      
+      // Attempt to fetch from API, but gracefully handle failure
+      try {
+        const response = await fetch('/api/admin/pending-users', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch pending users from API');
         }
-      ];
-
-      const pending = mockPendingUsers.filter(user => user.status === 'pending');
-      const approved = mockPendingUsers.filter(user => user.status === 'approved');
-      const rejected = mockPendingUsers.filter(user => user.status === 'rejected');
-
+        
+        const pendingUsersData = await response.json();
+      } catch (apiError) {
+        // API call failed (expected in dev without backend), continue with local data
+        console.log('API call failed, using local data:', apiError.message);
+      }
+      
+      // Get all users from UserService
+      const allUsers = UserService.getAllUsers();
+      
+      // Filter users by status - excluding admin users
+      const nonAdminUsers = allUsers.filter(user => user.role !== 'admin');
+      
+      const pending = nonAdminUsers.filter(user => {
+        // If user has no explicit status or is marked as pending
+        return !user.status || user.status === 'pending';
+      });
+      
+      const approved = nonAdminUsers.filter(user => user.status === 'approved');
+      const rejected = nonAdminUsers.filter(user => user.status === 'rejected');
+      
       setPendingUsers(pending);
       setApprovedUsers(approved);
       setRejectedUsers(rejected);
@@ -84,15 +95,44 @@ const AdminDashboard = () => {
 
   const handleApproveUser = async (userId) => {
     try {
-      // Mock API call - replace with actual implementation
-      console.log(`Approving user ${userId}`);
-      
-      // Update local state
-      const userToApprove = pendingUsers.find(user => user.id === userId);
-      if (userToApprove) {
-        setApprovedUsers([...approvedUsers, { ...userToApprove, status: 'approved' }]);
-        setPendingUsers(pendingUsers.filter(user => user.id !== userId));
+      // Attempt API call, but handle failure gracefully
+      try {
+        const response = await fetch('/api/admin/approve-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to approve user via API');
+        }
+        
+        await response.json();
+      } catch (apiError) {
+        // API call failed (expected in dev without backend), continue with local update
+        console.log('Approve API call failed, updating locally:', apiError.message);
       }
+      
+      // Update user status in the service
+      UserService.updateUserData(userId, { status: 'approved' });
+      
+      // Refresh the user lists
+      const allUsers = UserService.getAllUsers();
+      
+      const nonAdminUsers = allUsers.filter(user => user.role !== 'admin');
+      
+      const pending = nonAdminUsers.filter(user => {
+        return !user.status || user.status === 'pending';
+      });
+      
+      const approved = nonAdminUsers.filter(user => user.status === 'approved');
+      const rejected = nonAdminUsers.filter(user => user.status === 'rejected');
+      
+      setPendingUsers(pending);
+      setApprovedUsers(approved);
+      setRejectedUsers(rejected);
     } catch (err) {
       setError('Failed to approve user');
     }
@@ -100,15 +140,44 @@ const AdminDashboard = () => {
 
   const handleRejectUser = async (userId) => {
     try {
-      // Mock API call - replace with actual implementation
-      console.log(`Rejecting user ${userId}`);
-      
-      // Update local state
-      const userToReject = pendingUsers.find(user => user.id === userId);
-      if (userToReject) {
-        setRejectedUsers([...rejectedUsers, { ...userToReject, status: 'rejected' }]);
-        setPendingUsers(pendingUsers.filter(user => user.id !== userId));
+      // Attempt API call, but handle failure gracefully
+      try {
+        const response = await fetch('/api/admin/reject-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to reject user via API');
+        }
+        
+        await response.json();
+      } catch (apiError) {
+        // API call failed (expected in dev without backend), continue with local update
+        console.log('Reject API call failed, updating locally:', apiError.message);
       }
+      
+      // Update user status in the service
+      UserService.updateUserData(userId, { status: 'rejected' });
+      
+      // Refresh the user lists
+      const allUsers = UserService.getAllUsers();
+      
+      const nonAdminUsers = allUsers.filter(user => user.role !== 'admin');
+      
+      const pending = nonAdminUsers.filter(user => {
+        return !user.status || user.status === 'pending';
+      });
+      
+      const approved = nonAdminUsers.filter(user => user.status === 'approved');
+      const rejected = nonAdminUsers.filter(user => user.status === 'rejected');
+      
+      setPendingUsers(pending);
+      setApprovedUsers(approved);
+      setRejectedUsers(rejected);
     } catch (err) {
       setError('Failed to reject user');
     }
@@ -130,22 +199,25 @@ const AdminDashboard = () => {
     return users.map(user => (
       <div key={user.id} className="user-card">
         <div className="user-card-header">
-          {user.profileImage ? (
+          {user.profilePhoto ? (
             <img 
-              src={user.profileImage} 
+              src={user.profilePhoto} 
               alt={user.fullName} 
               className="user-avatar"
             />
           ) : (
             <div className="user-avatar-placeholder">
-              {user.fullName.charAt(0).toUpperCase()}
+              {user.fullName?.charAt(0).toUpperCase() || 'U'}
             </div>
           )}
           <div className="user-info">
-            <h3 className="user-name">{user.fullName}</h3>
+            <h3 className="user-name">{user.fullName || user.name}</h3>
             <p className="user-email">{user.email}</p>
-            <p className="user-role">{user.role === 'chef' ? 'HomeAspiring Chef' : 'HomeAspiring Visitor'}</p>
-            <p className="registration-date">Registered: {formatDate(user.registrationDate)}</p>
+            <p className="user-role">{user.role === 'chef' ? 'Home Chef' : 'Visitor'}</p>
+            <p className="registration-date">Registered: {formatDate(user.createdAt || user.registrationDate)}</p>
+            <span className={'status-badge ' + (user.status === 'approved' ? 'status-approved' : user.status === 'rejected' ? 'status-rejected' : 'status-pending')}>
+              {user.status === 'approved' ? 'Approved' : user.status === 'rejected' ? 'Rejected' : 'Pending'}
+            </span>
           </div>
         </div>
         
@@ -168,32 +240,6 @@ const AdminDashboard = () => {
       </div>
     ));
   };
-
-  if (loading) {
-    return (
-      <div className="admin-dashboard">
-        <div className="dashboard-loading">Loading...</div>
-      </div>
-    );
-  }
-
-  // Show access denied message
-  if (error === 'Access Denied: Admin privileges required') {
-    return (
-      <div className="admin-dashboard">
-        <div className="access-denied">
-          <h2>Access Denied</h2>
-          <p>You don't have permission to access the admin dashboard.</p>
-          <button 
-            className="back-button"
-            onClick={() => navigate('/')}
-          >
-            Return to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="admin-dashboard">

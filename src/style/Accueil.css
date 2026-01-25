@@ -43,12 +43,62 @@
   color: #ffffff;
   padding: 2.5rem 2rem;
   max-width: 800px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
 }
 
 .hero-title,
 .hero-subtitle{
   color: #fae3d2 !important;
   text-shadow: 1px 1px 4px rgba(0,0,0,.6);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+}
+
+/* Tablet and Mobile adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 400px;
+  }
+  
+  .hero-content {
+    padding: 2rem 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 350px;
+  }
+  
+  .hero-content {
+    padding: 1.5rem 1rem;
+    margin: 0 0.5rem;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
 }
 
 /* ================= SECTIONS ================= */
@@ -84,6 +134,32 @@
   color: #6b3f1d;
   text-align: center;
   margin-bottom: 1.5rem;
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .popular-recipes-section,
+  .mood-recommendations-section {
+    padding: 2.5rem 0 3rem;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .popular-recipes-section,
+  .mood-recommendations-section {
+    padding: 2rem 0 2.5rem;
+  }
 }
 
 /* ================= FULL WIDTH FIX ================= */
@@ -197,6 +273,65 @@
   color: #777;
 }
 
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .recipe-card,
+  .mood-recipe-card {
+    flex: 0 0 280px;
+  }
+  
+  .recipe-image-container {
+    height: 180px;
+  }
+  
+  .recipe-info {
+    padding: 0.8rem;
+  }
+  
+  .recipe-title {
+    font-size: 0.95rem;
+  }
+  
+  .recipe-description,
+  .recipe-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .recipe-card,
+  .mood-recipe-card {
+    flex: 0 0 250px;
+  }
+  
+  .recipe-image-container {
+    height: 160px;
+  }
+  
+  .recipe-info {
+    padding: 0.7rem;
+  }
+  
+  .recipe-title {
+    font-size: 0.9rem;
+  }
+  
+  .recipe-description,
+  .recipe-label {
+    font-size: 0.75rem;
+  }
+  
+  .full-width-scroll {
+    padding: 0 1rem;
+  }
+  
+  .recipes-grid-horizontal,
+  .recommendations-grid-horizontal {
+    gap: 1rem;
+  }
+}
+
 /* Duplicate card styling */
 .recipe-card.duplicate-card {
   flex: 0 0 260px;
@@ -247,17 +382,26 @@
   box-shadow: 0 0 0 3px rgba(107,63,29,.35);
 }
 
-/* ================= RESPONSIVE ================= */
+/* Tablet adjustments */
 @media (max-width: 768px) {
-  .hero-section { height: 350px; }
-  .recipe-card,
-  .mood-recipe-card,
-  .recipe-card.duplicate-card { flex: 0 0 220px; }
+  .filter-chip {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
 }
 
-@media (max-width: 576px) {
-  .hero-section { height: 300px; }
-  .recipe-card,
-  .mood-recipe-card,
-  .recipe-card.duplicate-card { flex: 0 0 200px; }
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .filter-chips-container {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-chip {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }
+
+/* ================= RESPONSIVE ================= */
+/* Note: Specific responsive styles have been moved to relevant sections above */

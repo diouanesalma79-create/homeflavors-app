@@ -172,24 +172,52 @@ const AddRecipeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+      
     if (!validateForm()) {
       return;
     }
-
+  
     setIsSubmitting(true);
-
+  
     try {
-      // In a real app, you would:
-      // 1. Upload image to storage and get URL
-      // 2. Send recipe data to API
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      // For demo purposes, just show success
+      // Create recipe object
+      const newRecipe = {
+        id: Date.now(), // In a real app, this would come from the backend
+        title: formData.title,
+        image: formData.image ? URL.createObjectURL(formData.image) : null,
+        ingredients: formData.ingredients.filter(ing => ing.trim()),
+        steps: formData.steps.filter(step => step.trim()),
+        prepTime: parseInt(formData.prepTime),
+        cookTime: parseInt(formData.cookTime),
+        totalTime: parseInt(formData.prepTime) + parseInt(formData.cookTime),
+        category: formData.category,
+        servings: parseInt(formData.servings),
+        visibility: formData.visibility,
+        chefId: user.id,
+        chefName: user.name,
+        chefAvatar: user.profilePhoto,
+        likes: 0,
+        views: 0,
+        createdAt: new Date().toISOString()
+      };
+  
+      // Add recipe to user's recipe list
+      const updatedUser = UserService.updateUserData(user.id, {
+        recipes: [...(user.recipes || []), newRecipe]
+      });
+  
+      // Update current session
+      const currentUser = UserService.getCurrentUser();
+      if (currentUser) {
+        const updatedSession = {
+          ...currentUser,
+          recipes: [...(currentUser.recipes || []), newRecipe]
+        };
+        localStorage.setItem('currentUser', JSON.stringify(updatedSession));
+      }
+  
       setSuccessMessage('✅ Recette ajoutée avec succès!');
-      
+        
       // Reset form after success
       setTimeout(() => {
         setFormData({
@@ -205,9 +233,9 @@ const AddRecipeForm = () => {
         });
         setSuccessMessage('');
         // Navigate back to dashboard or recipe list
-        navigate('/dashboard/chef');
+        navigate('/dashboard/chef/recipes');
       }, 2000);
-
+  
     } catch (error) {
       console.error('Error submitting recipe:', error);
       setErrors({ submit: 'Erreur lors de l\'ajout de la recette' });

@@ -22,6 +22,12 @@ import Order from './component/Order';
 import About from './component/About';
 import AdminDashboard from './component/AdminDashboard';
 import AdminLogin from './component/AdminLogin';
+import ProfileSettings from './component/ProfileSettings';
+import Messages from './component/Messages';
+import ChefProfile from './component/ChefProfile';
+import MyRecipes from './component/MyRecipes';
+import ChefOrders from './component/ChefOrders';
+import ChefSettings from './component/ChefSettings';
 import './App.css';
 
 function App() {
@@ -71,6 +77,86 @@ function App() {
             element={
               <ProtectedRoute>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Profile Settings Route */}
+          <Route 
+            path="/profile-settings" 
+            element={
+              <ProtectedRoute>
+                <ProfileSettings />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Messages Route */}
+          <Route 
+            path="/messages" 
+            element={
+              <ProtectedRoute>
+                <Messages />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Visitor Messages Route */}
+          <Route 
+            path="/dashboard/visitor/messages" 
+            element={
+              <ProtectedRoute allowedRoles={['visitor']}>
+                <Messages />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Chef Profile Route */}
+          <Route 
+            path="/chef/profile" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <ChefProfile />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Chef Recipes Route */}
+          <Route 
+            path="/chef/recipes" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <MyRecipes />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Chef Orders Route */}
+          <Route 
+            path="/chef/orders" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <ChefOrders />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Chef Messages Route */}
+          <Route 
+            path="/chef/messages" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <Messages />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Chef Settings Route */}
+          <Route 
+            path="/chef/settings" 
+            element={
+              <ProtectedRoute allowedRoles={['chef']}>
+                <ChefSettings />
               </ProtectedRoute>
             } 
           />

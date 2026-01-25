@@ -248,7 +248,7 @@
 }
 
 
-/* Responsive design */
+/* Tablet adjustments */
 @media (max-width: 768px) {
   .recipe-exploration {
     padding: 1rem;
@@ -277,7 +277,31 @@
   }
 
   .recipes-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .recipe-card {
+    min-height: auto;
+  }
+  
+  .recipe-content {
+    padding: 1rem;
+  }
+  
+  .recipe-title {
+    font-size: 1.2rem;
+  }
+  
+  .recipe-description {
+    font-size: 0.9rem;
+  }
+  
+  .show-more-btn button {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    height: auto;
   }
 
   .recipe-exploration::before,
@@ -286,7 +310,12 @@
   }
 }
 
+/* Mobile adjustments */
 @media (max-width: 480px) {
+  .recipe-exploration {
+    padding: 0.75rem;
+  }
+
   .exploration-title {
     font-size: 1.8rem;
   }
@@ -303,6 +332,28 @@
     padding: 0.5rem 0.75rem;
     min-width: 80px;
     font-size: 0.75rem;
+  }
+  
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .recipe-title {
+    font-size: 1.1rem;
+  }
+  
+  .recipe-description {
+    font-size: 0.85rem;
+  }
+  
+  .show-more-btn button {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .recipe-image-container {
+    height: 160px;
   }
 }
 .voir-plus-card {

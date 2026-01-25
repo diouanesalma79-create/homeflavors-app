@@ -120,3 +120,10 @@
     height: 1.125rem;
   }
 }
+
+/* Hide navigation on mobile since it's in the mobile menu */
+@media (max-width: 768px) {
+  .main-navigation {
+    display: none;
+  }
+}
