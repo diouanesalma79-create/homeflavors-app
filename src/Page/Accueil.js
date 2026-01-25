@@ -129,8 +129,8 @@ const Accueil = () => {
       <div className="hero-section" style={{ backgroundImage: `url(${foodBg})` }}>
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title">Partagez et découvrez des</h1>
-            <h2 className="hero-subtitle">saveurs authentiques  Votre pont culturel gustatif.</h2>
+            <h1 className="hero-title">HomeFlavors</h1><br></br>
+            <h1 className="hero-title">From the heart of taste  Share with grace.</h1>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@ const Accueil = () => {
 
  {/* Titre centré */}
  <div className="container">
-   <h2 className="section-title">Recettes populaires du monde</h2>
+   <h2 className="section-title">Popular Recipes</h2>
  </div>
 
       {/* Cards en full width */}

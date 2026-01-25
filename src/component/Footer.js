@@ -8,8 +8,9 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   const footerLinks = [
-    { path: '/privacy', label: 'Politique de confidentialité' },
-    { path: '/terms', label: 'Conditions d\'utilisation' }
+  { path: '/privacy', label: 'Privacy Policy' },
+  { path: '/terms', label: 'Terms of Use' }
+
   ];
 
   const socialLinks = [
@@ -30,14 +31,14 @@ const Footer = () => {
             <h3 className="footer-brand-name">HomeFlavors</h3>
           </div>
           <p className="footer-description">
-            Partagez et découvrez des saveurs authentiques du monde entier.
-            Votre pont culturel gustatif.
+                  Share and discover authentic flavors from across the globe.
+              Your cultural bridge through taste.
           </p>
         </div>
 
         {/* Section centre - Liens utiles */}
         <div className="footer-section footer-links">
-          <h4 className="footer-title">Liens utiles</h4>
+          <h4 className="footer-title">Useful Links</h4>
           <ul className="footer-nav-list">
             {footerLinks.map((link) => (
               <li key={link.path}>
@@ -72,7 +73,7 @@ const Footer = () => {
           </ul>
 
           <div className="footer-social">
-            <h4 className="footer-social-title">Suivez-nous</h4>
+            <h4 className="footer-social-title">Follow Us</h4>
             <div className="footer-social-links">
               {socialLinks.map((social) => (
                 <a
@@ -100,7 +101,7 @@ const Footer = () => {
       {/* Footer bottom */}
       <div className="footer-bottom">
         <p className="footer-copyright">
-          © {year} HomeFlavors. Tous droits réservés.
+        © {year} HomeFlavors. All rights reserved.
         </p>
       </div>
     </footer>

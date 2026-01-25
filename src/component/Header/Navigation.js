@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import '../../style/Navigation.css';
 
 const navigationItems = [
-  { path: '/', label: 'Accueil', end: true },
-  { path: '/recipes', label: 'Recettes', end: false },
-  { path: '/chefs', label: 'Chefs', end: false },
+  { path: '/', label: 'Home', end: true },
+  { path: '/recipes', label: 'Recipes', end: false },
+  { path: '/chefs', label: 'Chef', end: false },
   { path: '/about', label: 'About', end: false }
 ];
 

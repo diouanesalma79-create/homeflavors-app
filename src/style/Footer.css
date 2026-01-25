@@ -74,8 +74,7 @@ html, body {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  background: #fde6c1;
-  border-radius: 50%;
+  border-radius: 12px;
   padding: 0.75rem;
   border: 2px solid rgba(201, 161, 103, 0.3);
   transition: all 0.3s ease;

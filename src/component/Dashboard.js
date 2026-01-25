@@ -359,7 +359,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           onClick={(e) => { e.preventDefault(); navigate('/chef/profile'); }}
         >
           <UserIcon className="icon" style={{width: '20px', height: '20px'}} />
-          <span>Profil</span>
+          <span>Profile</span>
         </a>
         <a 
           href="#" 
@@ -367,7 +367,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           onClick={(e) => { e.preventDefault(); navigate('/chef/recipes'); }}
         >
           <CookingPotIcon className="icon" style={{width: '20px', height: '20px'}} />
-          <span>Recettes</span>
+          <span>Recipes</span>
         </a>
         <a 
           href="#" 
@@ -375,7 +375,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           onClick={(e) => { e.preventDefault(); navigate('/chef/orders'); }}
         >
           <span className="icon">📋</span>
-          <span>Commandes</span>
+          <span>Orders</span>
         </a>
         <a 
           href="#" 
@@ -391,14 +391,14 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           onClick={(e) => { e.preventDefault(); navigate('/chef/settings'); }}
         >
           <span className="icon" style={{fontSize: '1.2rem'}}>⚙️</span>
-          <span>Paramètres</span>
+          <span>Settings</span>
         </a>
       </nav>
 
       <div className="sidebar-footer">
         <button className="sidebar-logout-btn" onClick={onLogout}>
           <LogOutIcon className="icon" style={{width: '20px', height: '20px'}} />
-          <span className="sidebar-logout-text">Déconnexion</span>
+          <span className="sidebar-logout-text">Logout</span>
         </button>
       </div>
     </div>
@@ -440,7 +440,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           <div className="profile-details">
             <h1 className="profile-name">
               {user.name} 
-              <span className="profile-verified-badge">Chef vérifié</span>
+              <span className="profile-verified-badge">Verified Chef</span>
             </h1>
             <p className="profile-role">
               <span>Professional Chef</span>
@@ -468,7 +468,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           <CookingPotIcon style={{width: '24px', height: '24px'}} />
         </div>
         <h3 className="stat-value">{statsData.totalRecipes}</h3>
-        <p className="stat-label">Total Recettes</p>
+        <p className="stat-label">Total Recipes</p>
       </div>
       
       <div className="stat-card">
@@ -476,7 +476,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           <span>📋</span>
         </div>
         <h3 className="stat-value">{statsData.weeklyOrders}</h3>
-        <p className="stat-label">Commandes cette semaine</p>
+        <p className="stat-label">Orders This Week</p>
       </div>
       
       <div className="stat-card">
@@ -484,7 +484,7 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           <MessageCircleIcon style={{width: '24px', height: '24px'}} />
         </div>
         <h3 className="stat-value">{statsData.unreadMessages}</h3>
-        <p className="stat-label">Messages non lus</p>
+        <p className="stat-label">Unread Messages</p>
       </div>
       
       <div className="stat-card">
@@ -492,16 +492,16 @@ const ChefDashboard = ({ user, onLogout, onProfileSettings, navigate }) => {
           <span>⭐</span>
         </div>
         <h3 className="stat-value">{statsData.averageRating}</h3>
-        <p className="stat-label">Note moyenne</p>
+        <p className="stat-label">Average Rating</p>
       </div>
     </div>
   );
 
   const renderCTASection = () => (
     <div className="cta-section">
-      <h3 className="cta-title">Envie de partager une nouvelle recette ?</h3>
+      <h3 className="cta-title">Want to share a new recipe?</h3>
       <button className="add-recipe-btn" onClick={handleAddRecipe}>
-        <span>+</span> Ajouter une recette
+        <span>+</span> Add a Recipe
       </button>
     </div>
   );
@@ -572,13 +572,13 @@ const VisitorDashboardContent = ({ user, navigate }) => {
               navigate(`/recipe/${recipe.id}`);
             }}
           >
-            Voir la recette
+            View Recipe
           </button>
           <button 
             className="remove-recipe-btn"
             onClick={() => onRemove(recipe.id)}
           >
-            Supprimer
+           Remove
           </button>
         </div>
       </div>
@@ -644,7 +644,7 @@ const VisitorDashboardContent = ({ user, navigate }) => {
     if (savedRecipes.length === 0) {
       return (
         <div className="no-saved-recipes">
-          <p>Aucune recette enregistrée pour le moment.</p>
+          <p>No saved recipes at the moment.</p>
         </div>
       );
     }
@@ -677,7 +677,7 @@ const VisitorDashboardContent = ({ user, navigate }) => {
                 className="notification-action"
                 onClick={() => navigate('/messages')}
               >
-                Voir
+               View
               </button>
             </div>
           ))}
@@ -690,13 +690,13 @@ const VisitorDashboardContent = ({ user, navigate }) => {
           className={`tab-button ${activeTab === 'saved' ? 'active' : ''}`}
           onClick={() => setActiveTab('saved')}
         >
-          Recettes Enregistrées
+          Saved Recipes
         </button>
         <button 
           className={`tab-button ${activeTab === 'other' ? 'active' : ''}`}
           onClick={() => setActiveTab('other')}
         >
-          Autres
+         Others
         </button>
       </div>
 

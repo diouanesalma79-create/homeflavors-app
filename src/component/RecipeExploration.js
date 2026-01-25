@@ -165,7 +165,7 @@ const RecipeExploration = () => {
           >
             <div className="voir-plus-content">
               <span className="arrow">→</span>
-              <h3>Voir plus</h3>
+              <h3>View more </h3>
               <p>Discover more recipes</p>
           </div>
         </div>

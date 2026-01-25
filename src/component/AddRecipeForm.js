@@ -252,232 +252,233 @@ const AddRecipeForm = () => {
     return <div>Chargement...</div>;
   }
 
-  return (
-    <div className="add-recipe-page">
-      <div className="add-recipe-container">
-        <div className="form-header">
-          <h1>Ajouter une nouvelle recette</h1>
-          <p>Partagez votre expertise culinaire avec la communauté HomeFlavors</p>
+ return (
+  <div className="add-recipe-page">
+    <div className="add-recipe-container">
+      <div className="form-header">
+        <h1>Add a New Recipe</h1>
+        <p>Share your culinary expertise with the HomeFlavors community</p>
+      </div>
+
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
+
+      <form className="recipe-form" onSubmit={handleSubmit}>
+        {/* Title Field */}
+        <div className="form-group">
+          <label htmlFor="title">Recipe Title *</label>
+          <input
+            type="text"
+            id="title"
+            value={formData.title}
+            onChange={(e) => handleInputChange('title', e.target.value)}
+            className={errors.title ? 'error' : ''}
+            placeholder="Enter the name of your recipe"
+          />
+          {errors.title && <span className="error-message">{errors.title}</span>}
         </div>
 
-        {successMessage && (
-          <div className="success-message">
-            {successMessage}
-          </div>
-        )}
-
-        <form className="recipe-form" onSubmit={handleSubmit}>
-          {/* Title Field */}
-          <div className="form-group">
-            <label htmlFor="title">Titre de la recette *</label>
-            <input
-              type="text"
-              id="title"
-              value={formData.title}
-              onChange={(e) => handleInputChange('title', e.target.value)}
-              className={errors.title ? 'error' : ''}
-              placeholder="Entrez le nom de votre recette"
-            />
-            {errors.title && <span className="error-message">{errors.title}</span>}
-          </div>
-
-          {/* Image Upload */}
-          <div className="form-group">
-            <label htmlFor="image">Image de la recette *</label>
-            <input
-              type="file"
-              id="image"
-              accept=".jpg,.jpeg,.png,.webp"
-              onChange={handleImageUpload}
-              className={errors.image ? 'error' : ''}
-            />
-            {errors.image && <span className="error-message">{errors.image}</span>}
-            {formData.image && (
-              <div className="image-preview">
-                <img 
-                  src={URL.createObjectURL(formData.image)} 
-                  alt="Preview" 
-                />
-                <p>{formData.image.name}</p>
-              </div>
-            )}
-          </div>
-
-          {/* Ingredients */}
-          <div className="form-group">
-            <label>Ingrédients *</label>
-            <div className="ingredients-list">
-              {formData.ingredients.map((ingredient, index) => (
-                <div key={index} className="ingredient-input">
-                  <input
-                    type="text"
-                    value={ingredient}
-                    onChange={(e) => handleIngredientChange(index, e.target.value)}
-                    placeholder={`Ingrédient ${index + 1}`}
-                    className={errors.ingredients ? 'error' : ''}
-                  />
-                  {formData.ingredients.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeIngredient(index)}
-                      className="remove-btn"
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addIngredient}
-                className="add-btn"
-              >
-                + Ajouter un ingrédient
-              </button>
-            </div>
-            {errors.ingredients && <span className="error-message">{errors.ingredients}</span>}
-          </div>
-
-          {/* Steps */}
-          <div className="form-group">
-            <label>Étapes de préparation *</label>
-            <div className="steps-list">
-              {formData.steps.map((step, index) => (
-                <div key={index} className="step-input">
-                  <div className="step-number">Étape {index + 1}</div>
-                  <textarea
-                    value={step}
-                    onChange={(e) => handleStepChange(index, e.target.value)}
-                    placeholder={`Décrivez l'étape ${index + 1}`}
-                    rows="3"
-                    className={errors.steps ? 'error' : ''}
-                  />
-                  {formData.steps.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeStep(index)}
-                      className="remove-btn"
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addStep}
-                className="add-btn"
-              >
-                + Ajouter une étape
-              </button>
-            </div>
-            {errors.steps && <span className="error-message">{errors.steps}</span>}
-          </div>
-
-          {/* Prep Time */}
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="prepTime">Temps de préparation (min) *</label>
-              <input
-                type="number"
-                id="prepTime"
-                value={formData.prepTime}
-                onChange={(e) => handleInputChange('prepTime', e.target.value)}
-                className={errors.prepTime ? 'error' : ''}
-                min="1"
+        {/* Image Upload */}
+        <div className="form-group">
+          <label htmlFor="image">Recipe Image *</label>
+          <input
+            type="file"
+            id="image"
+            accept=".jpg,.jpeg,.png,.webp"
+            onChange={handleImageUpload}
+            className={errors.image ? 'error' : ''}
+          />
+          {errors.image && <span className="error-message">{errors.image}</span>}
+          {formData.image && (
+            <div className="image-preview">
+              <img 
+                src={URL.createObjectURL(formData.image)} 
+                alt="Preview" 
               />
-              {errors.prepTime && <span className="error-message">{errors.prepTime}</span>}
-            </div>
-
-            {/* Cook Time */}
-            <div className="form-group">
-              <label htmlFor="cookTime">Temps de cuisson (min)</label>
-              <input
-                type="number"
-                id="cookTime"
-                value={formData.cookTime}
-                onChange={(e) => handleInputChange('cookTime', e.target.value)}
-                className={errors.cookTime ? 'error' : ''}
-                min="0"
-              />
-              {errors.cookTime && <span className="error-message">{errors.cookTime}</span>}
-            </div>
-          </div>
-
-          {/* Servings */}
-          <div className="form-group">
-            <label htmlFor="servings">Portions *</label>
-            <input
-              type="number"
-              id="servings"
-              value={formData.servings}
-              onChange={(e) => handleInputChange('servings', e.target.value)}
-              className={errors.servings ? 'error' : ''}
-              min="1"
-            />
-            {errors.servings && <span className="error-message">{errors.servings}</span>}
-          </div>
-
-          {/* Category */}
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="category">Catégorie</label>
-              <select
-                id="category"
-                value={formData.category}
-                onChange={(e) => handleInputChange('category', e.target.value)}
-              >
-                <option value="Entrée">Entrée</option>
-                <option value="Plat">Plat</option>
-                <option value="Dessert">Dessert</option>
-                <option value="Vegan">Vegan</option>
-                <option value="Végétarien">Végétarien</option>
-                <option value="Sans gluten">Sans gluten</option>
-              </select>
-            </div>
-
-            {/* Visibility */}
-            <div className="form-group">
-              <label htmlFor="visibility">Visibilité</label>
-              <select
-                id="visibility"
-                value={formData.visibility}
-                onChange={(e) => handleInputChange('visibility', e.target.value)}
-              >
-                <option value="Public">Public</option>
-                <option value="Privé">Privé</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Form Actions */}
-          <div className="form-actions">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="cancel-btn"
-              disabled={isSubmitting}
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
-            </button>
-          </div>
-
-          {errors.submit && (
-            <div className="error-message submit-error">
-              {errors.submit}
+              <p>{formData.image.name}</p>
             </div>
           )}
-        </form>
-      </div>
+        </div>
+
+        {/* Ingredients */}
+        <div className="form-group">
+          <label>Ingredients *</label>
+          <div className="ingredients-list">
+            {formData.ingredients.map((ingredient, index) => (
+              <div key={index} className="ingredient-input">
+                <input
+                  type="text"
+                  value={ingredient}
+                  onChange={(e) => handleIngredientChange(index, e.target.value)}
+                  placeholder={`Ingredient ${index + 1}`}
+                  className={errors.ingredients ? 'error' : ''}
+                />
+                {formData.ingredients.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeIngredient(index)}
+                    className="remove-btn"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addIngredient}
+              className="add-btn"
+            >
+              + Add an Ingredient
+            </button>
+          </div>
+          {errors.ingredients && <span className="error-message">{errors.ingredients}</span>}
+        </div>
+
+        {/* Steps */}
+        <div className="form-group">
+          <label>Preparation Steps *</label>
+          <div className="steps-list">
+            {formData.steps.map((step, index) => (
+              <div key={index} className="step-input">
+                <div className="step-number">Step {index + 1}</div>
+                <textarea
+                  value={step}
+                  onChange={(e) => handleStepChange(index, e.target.value)}
+                  placeholder={`Describe step ${index + 1}`}
+                  rows="3"
+                  className={errors.steps ? 'error' : ''}
+                />
+                {formData.steps.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeStep(index)}
+                    className="remove-btn"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addStep}
+              className="add-btn"
+            >
+              + Add a Step
+            </button>
+          </div>
+          {errors.steps && <span className="error-message">{errors.steps}</span>}
+        </div>
+
+        {/* Prep Time */}
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="prepTime">Preparation Time (min) *</label>
+            <input
+              type="number"
+              id="prepTime"
+              value={formData.prepTime}
+              onChange={(e) => handleInputChange('prepTime', e.target.value)}
+              className={errors.prepTime ? 'error' : ''}
+              min="1"
+            />
+            {errors.prepTime && <span className="error-message">{errors.prepTime}</span>}
+          </div>
+
+          {/* Cook Time */}
+          <div className="form-group">
+            <label htmlFor="cookTime">Cooking Time (min)</label>
+            <input
+              type="number"
+              id="cookTime"
+              value={formData.cookTime}
+              onChange={(e) => handleInputChange('cookTime', e.target.value)}
+              className={errors.cookTime ? 'error' : ''}
+              min="0"
+            />
+            {errors.cookTime && <span className="error-message">{errors.cookTime}</span>}
+          </div>
+        </div>
+
+        {/* Servings */}
+        <div className="form-group">
+          <label htmlFor="servings">Servings *</label>
+          <input
+            type="number"
+            id="servings"
+            value={formData.servings}
+            onChange={(e) => handleInputChange('servings', e.target.value)}
+            className={errors.servings ? 'error' : ''}
+            min="1"
+          />
+          {errors.servings && <span className="error-message">{errors.servings}</span>}
+        </div>
+
+        {/* Category */}
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="category">Category</label>
+            <select
+              id="category"
+              value={formData.category}
+              onChange={(e) => handleInputChange('category', e.target.value)}
+            >
+              <option value="Entrée">Starter</option>
+              <option value="Plat">Main Course</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Vegan">Vegan</option>
+              <option value="Végétarien">Vegetarian</option>
+              <option value="Sans gluten">Gluten-Free</option>
+            </select>
+          </div>
+
+          {/* Visibility */}
+          <div className="form-group">
+            <label htmlFor="visibility">Visibility</label>
+            <select
+              id="visibility"
+              value={formData.visibility}
+              onChange={(e) => handleInputChange('visibility', e.target.value)}
+            >
+              <option value="Public">Public</option>
+              <option value="Privé">Private</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Form Actions */}
+        <div className="form-actions">
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="cancel-btn"
+            disabled={isSubmitting}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Saving...' : 'Save'}
+          </button>
+        </div>
+
+        {errors.submit && (
+          <div className="error-message submit-error">
+            {errors.submit}
+          </div>
+        )}
+      </form>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default AddRecipeForm;
